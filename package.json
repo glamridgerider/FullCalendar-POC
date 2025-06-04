@@ -1,0 +1,27 @@
+{
+  "name": "fullcalendar-poc",
+  "private": true,
+  "version": "1.0.0",
+  "description": "FullCalendar with Bootstrap 5 and Vite",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@fullcalendar/bootstrap5": "^6.1.17",
+    "@fullcalendar/core": "^6.1.17",
+    "@fullcalendar/daygrid": "^6.1.17",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.6",
+    "sass": "^1.89.1",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@fullcalendar/common": "^5.11.5",
+    "@fullcalendar/timegrid": "^6.1.17"
+  }
+}
