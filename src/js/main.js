@@ -188,62 +188,96 @@ document.addEventListener('DOMContentLoaded', function () {
       const endDate = event.end ? formatDateTime(event.end) : ''
       const props = event.extendedProps || {}
 
-      modalBody.innerHTML = `
-        <div class="event-details">
-          <div class="ride-header mb-3">
-            <span class="badge bg-primary">${props.rideType || 'Ride'}</span>
-            <p class="mt-2 mb-0">
-              <strong>Date:</strong> ${startDate}
-              ${endDate ? `<br><strong>End:</strong> ${endDate}` : ''}
-            </p>
-          </div>
-          
-          <div class="ride-logistics mb-3">
-            <h6 class="details-section-title">Ride Details</h6>
-            <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
-            <p class="mb-2">
-              <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
-              ${props.departLocationURL ? `
-                <a href="${props.departLocationURL}" target="_blank" class="ms-2 text-primary" aria-label="View meeting point on map">
-                  <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
-                </a>
-              ` : ''}
-            </p>
-            <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
-            <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
-          </div>
+      // Convert guidance text to HTML
+      const processedGuidance = convertUrlsToLinks(props.guidance || 'No specific guidance provided.')
 
-          <div class="ride-info mb-3">
-            <h6 class="details-section-title">Guidance</h6>
-            <p class="mb-2">${props.guidance || 'No specific guidance provided.'}</p>
-          </div>
+      // Create the modal content with HTML-safe interpolations
+      const content = document.createElement('div');
+      content.className = 'event-details';
 
-          ${props.rideNotes ? `
-            <div class="ride-notes mb-3">
-              <h6 class="details-section-title">Additional Notes</h6>
-              <p class="mb-2">${props.rideNotes}</p>
-            </div>
+      // Create ride header
+      const rideHeader = document.createElement('div');
+      rideHeader.className = 'ride-header mb-3';
+      rideHeader.innerHTML = `
+        <span class="badge bg-primary">${props.rideType || 'Ride'}</span>
+        <p class="mt-2 mb-0">
+          <strong>Date:</strong> ${startDate}
+          ${endDate ? `<br><strong>End:</strong> ${endDate}` : ''}
+        </p>
+      `;
+      content.appendChild(rideHeader);
+
+      // Create ride logistics
+      const rideLogistics = document.createElement('div');
+      rideLogistics.className = 'ride-logistics mb-3';
+      rideLogistics.innerHTML = `
+        <h6 class="details-section-title">Ride Details</h6>
+        <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
+        <p class="mb-2">
+          <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
+          ${props.departLocationURL ? `
+            <a href="${props.departLocationURL}" target="_blank" class="ms-2 text-primary" aria-label="View meeting point on map">
+              <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+            </a>
           ` : ''}
+        </p>
+        <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
+        <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
+      `;
+      content.appendChild(rideLogistics);
 
-          ${props.ridePhotosURL || props.ridePhotos ? `
-            <div class="ride-photos">
-              <h6 class="details-section-title">${props.rideType === 'Social' ? 'Photos' : 'Route & Photos'}</h6>
-              <div class="action-buttons d-flex gap-3 justify-content-center">
-                ${props.rideType !== 'Social' && props.ridePhotosURL ? `
-                  <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
-                    <i class="bi bi-map"></i> View Route Details
-                  </a>
-                ` : ''}
-                ${props.ridePhotosURL ? `
-                  <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${props.rideType === 'Social' ? 'w-50' : 'flex-fill'}">
-                    <i class="bi bi-images"></i> View Photos
-                  </a>
-                ` : ''}
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      `
+      // Create ride guidance with properly sanitized HTML content
+      const rideInfo = document.createElement('div');
+      rideInfo.className = 'ride-info mb-3';
+      
+      const guidanceTitle = document.createElement('h6');
+      guidanceTitle.className = 'details-section-title';
+      guidanceTitle.textContent = 'Guidance';
+      rideInfo.appendChild(guidanceTitle);
+      
+      const guidanceText = document.createElement('div');
+      guidanceText.className = 'guidance-text mb-2';
+      guidanceText.innerHTML = convertUrlsToLinks(props.guidance || '');
+      rideInfo.appendChild(guidanceText);
+      
+      content.appendChild(rideInfo);
+
+      // Add optional ride notes
+      if (props.rideNotes) {
+        const rideNotes = document.createElement('div');
+        rideNotes.className = 'ride-notes mb-3';
+        rideNotes.innerHTML = `
+          <h6 class="details-section-title">Additional Notes</h6>
+          <p class="mb-2">${props.rideNotes}</p>
+        `;
+        content.appendChild(rideNotes);
+      }
+
+      // Add optional photos/route section
+      if (props.ridePhotosURL || props.ridePhotos) {
+        const ridePhotos = document.createElement('div');
+        ridePhotos.className = 'ride-photos';
+        ridePhotos.innerHTML = `
+          <h6 class="details-section-title">${props.rideType === 'Social' ? 'Photos' : 'Route & Photos'}</h6>
+          <div class="action-buttons d-flex gap-3 justify-content-center">
+            ${props.rideType !== 'Social' && props.ridePhotosURL ? `
+              <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
+                <i class="bi bi-map"></i> View Route Details
+              </a>
+            ` : ''}
+            ${props.ridePhotosURL ? `
+              <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${props.rideType === 'Social' ? 'w-50' : 'flex-fill'}">
+                <i class="bi bi-images"></i> View Photos
+              </a>
+            ` : ''}
+          </div>
+        `;
+        content.appendChild(ridePhotos);
+      }
+
+      // Clear and set the modal body content
+      modalBody.innerHTML = '';
+      modalBody.appendChild(content);
 
       // Update calendar links
       const eventDetails = {
@@ -259,6 +293,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Show modal
       modal.show()
+      
+      // HTML content is already set in the modal body HTML string, no need to set it again
+      // Ensure that any links in the modal are styled correctly
+      modalBody.querySelectorAll('.guidance-text a').forEach(link => {
+        link.classList.add('text-primary', 'fw-medium');
+        link.setAttribute('rel', 'noopener noreferrer');
+        link.setAttribute('target', '_blank');
+      });
     },
     events: calendarEvents
   })
@@ -347,4 +389,100 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Set initial active view button
   updateActiveViewButton('dayGridMonth')
+
+  /**
+   * Convert URLs and Markdown-style links to clickable HTML links
+   * @param {string} text The text containing URLs or Markdown links
+   * @returns {string} HTML with clickable links
+   */
+  function convertUrlsToLinks(text) {
+    if (!text) return 'No specific guidance provided.';
+    
+    let processedText = text;
+
+    // First handle Markdown-style links: [text](url)
+    processedText = processedText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
+      const sanitizedUrl = encodeURI(url.trim());
+      const sanitizedText = linkText.trim().replace(/[<>]/g, '');
+      
+      return `<a href="${sanitizedUrl}" target="_blank" rel="noopener noreferrer">${sanitizedText}</a>`;
+    });
+    
+    // Then handle plain URLs
+    const urlRegex = /(?<!["'(\[])https?:\/\/[^\s<>)"'\]]+/g;
+    processedText = processedText.replace(urlRegex, url => {
+      const sanitizedUrl = encodeURI(url.trim());
+      return `<a href="${sanitizedUrl}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
+
+    // Replace newlines with <br> tags for proper line breaks
+    processedText = processedText.replace(/\n/g, '<br>');
+    
+    return processedText;
+  }
+
+  // Update the modal content creation
+  function createEventContent(event) {
+      const props = event.extendedProps || {};
+      const guidanceHtml = convertUrlsToLinks(props.guidance);
+      
+      return `
+          <div class="event-details">
+            <div class="ride-header mb-3">
+              <span class="badge bg-primary">${props.rideType || 'Ride'}</span>
+              <p class="mt-2 mb-0">
+                <strong>Date:</strong> ${formatDateTime(event.start)}
+                ${event.end ? `<br><strong>End:</strong> ${formatDateTime(event.end)}` : ''}
+              </p>
+            </div>
+            
+            <div class="ride-logistics mb-3">
+              <h6 class="details-section-title">Ride Details</h6>
+              <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
+              <p class="mb-2">
+                <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
+                ${props.departLocationURL ? `
+                  <a href="${props.departLocationURL}" target="_blank" class="ms-2 text-primary" aria-label="View meeting point on map">
+                    <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+                  </a>
+                ` : ''}
+              </p>
+              <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
+              <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
+            </div>
+
+            <div class="ride-info mb-3">
+              <h6 class="details-section-title">Guidance</h6>
+              <div class="guidance-text mb-3">
+                  ${guidanceHtml}
+              </div>
+            </div>
+
+            ${props.rideNotes ? `
+              <div class="ride-notes mb-3">
+                <h6 class="details-section-title">Additional Notes</h6>
+                <p class="mb-2">${props.rideNotes}</p>
+              </div>
+            ` : ''}
+
+            ${props.ridePhotosURL || props.ridePhotos ? `
+              <div class="ride-photos">
+                <h6 class="details-section-title">${props.rideType === 'Social' ? 'Photos' : 'Route & Photos'}</h6>
+                <div class="action-buttons d-flex gap-3 justify-content-center">
+                  ${props.rideType !== 'Social' && props.ridePhotosURL ? `
+                    <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
+                      <i class="bi bi-map"></i> View Route Details
+                    </a>
+                  ` : ''}
+                  ${props.ridePhotosURL ? `
+                    <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${props.rideType === 'Social' ? 'w-50' : 'flex-fill'}">
+                      <i class="bi bi-images"></i> View Photos
+                    </a>
+                  ` : ''}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+      `;
+  }
 })

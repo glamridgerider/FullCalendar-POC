@@ -459,6 +459,50 @@
   font-weight: 600;
 }
 
+.guidance-text {
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.guidance-text a {
+  color: #4f46e5;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  font-weight: 500;
+  padding: 0.1em 0.2em;
+  margin: -0.1em -0.2em;
+  border-radius: 0.2em;
+  transition: all 0.2s ease;
+}
+
+.guidance-text a:hover {
+  color: #4338ca;
+  text-decoration-thickness: 2px;
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+.guidance-text a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4f46e5;
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+.guidance-text a[target="_blank"]::after {
+  content: "↗";
+  display: inline-block;
+  margin-left: 0.2em;
+  font-size: 0.85em;
+  vertical-align: text-top;
+  opacity: 0.8;
+}
+
+.guidance-text br {
+  display: block;
+  margin-bottom: 0.5em;
+  content: "";
+}
+
 /* Responsive adjustments */
 @media (max-width: 576px) {
   .event-details {
