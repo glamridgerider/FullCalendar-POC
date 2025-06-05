@@ -193,3 +193,84 @@
 .fc-scroller::-webkit-scrollbar-thumb:hover {
   background-color: #94a3b8;
 }
+
+/* Event Modal Styles */
+.event-details {
+  font-size: 0.95rem;
+}
+
+.event-details .badge {
+  font-size: 0.9rem;
+  padding: 0.5em 1em;
+}
+
+.details-section-title {
+  color: #4f46e5;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.ride-logistics p,
+.ride-info p,
+.ride-notes p {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.ride-logistics strong,
+.ride-info strong,
+.ride-notes strong {
+  color: #1e293b;
+  margin-right: 0.5rem;
+}
+
+.action-buttons .btn {
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.action-buttons .btn i {
+  font-size: 1.1em;
+}
+
+/* Modal header and footer */
+.modal-header {
+  border-bottom: 2px solid #e2e8f0;
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-footer {
+  border-top: 2px solid #e2e8f0;
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-footer .btn {
+  padding: 0.5rem 1rem;
+  min-width: 180px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.modal-title {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .event-details {
+    font-size: 0.9rem;
+  }
+
+  .modal-header,
+  .modal-footer {
+    padding: 1rem;
+  }
+}

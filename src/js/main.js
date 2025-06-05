@@ -2,8 +2,12 @@
 import '../scss/styles.scss'
 import '../css/calendar-styles.css'
 
-// Import Bootstrap's JavaScript
-import { Modal, Tooltip } from 'bootstrap'
+// Import styles
+import '../scss/styles.scss'
+import '../css/calendar-styles.css'
+
+// Import Bootstrap from node_modules
+import * as bootstrap from 'bootstrap'
 
 // Import FullCalendar and its plugins
 import { Calendar } from '@fullcalendar/core'
@@ -24,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize all tooltips
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
   const calendarEl = document.getElementById('calendar')
   const eventModal = document.getElementById('eventModal')
@@ -38,7 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Initialize Bootstrap modal
-  modal = new Modal(eventModal)
+  modal = new bootstrap.Modal(eventModal, {
+    backdrop: true,
+    keyboard: true,
+    focus: true
+  })
 
   // Add loading indicator
   const toggleLoading = (show) => {
@@ -137,29 +145,54 @@ document.addEventListener('DOMContentLoaded', function () {
       // Format modal body content
       const startDate = formatDateTime(event.start)
       const endDate = event.end ? formatDateTime(event.end) : ''
-      const description = event.extendedProps?.description || ''
-      const location = event.extendedProps?.location || ''
+      const props = event.extendedProps || {}
 
       modalBody.innerHTML = `
         <div class="event-details">
-          <p>
-            <strong>When</strong>
-            <span>
-              ${startDate}
-              ${endDate ? `<br>to ${endDate}` : ''}
-            </span>
-          </p>
-          ${location ? `
-            <p>
-              <strong>Where</strong>
-              <span>${location}</span>
+          <div class="ride-header mb-3">
+            <span class="badge bg-primary">${props.rideType || 'Ride'}</span>
+            <p class="mt-2 mb-0">
+              <strong>Date:</strong> ${startDate}
+              ${endDate ? `<br><strong>End:</strong> ${endDate}` : ''}
             </p>
+          </div>
+          
+          <div class="ride-logistics mb-3">
+            <h6 class="details-section-title">Ride Details</h6>
+            <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
+            <p class="mb-2"><strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}</p>
+            <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
+            <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
+          </div>
+
+          <div class="ride-info mb-3">
+            <h6 class="details-section-title">Guidance</h6>
+            <p class="mb-2">${props.guidance || 'No specific guidance provided.'}</p>
+          </div>
+
+          ${props.rideNotes ? `
+            <div class="ride-notes mb-3">
+              <h6 class="details-section-title">Additional Notes</h6>
+              <p class="mb-2">${props.rideNotes}</p>
+            </div>
           ` : ''}
-          ${description ? `
-            <p>
-              <strong>Details</strong>
-              <span>${description}</span>
-            </p>
+
+          ${props.ridePhotosURL || props.ridePhotos ? `
+            <div class="ride-photos">
+              <h6 class="details-section-title">Route & Photos</h6>
+              <div class="action-buttons d-flex gap-3 justify-content-center">
+                ${props.ridePhotosURL ? `
+                  <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
+                    <i class="bi bi-map"></i> View Route Details
+                  </a>
+                ` : ''}
+                ${props.ridePhotosURL ? `
+                  <a href="${props.ridePhotosURL}/photos" target="_blank" class="btn btn-outline-primary flex-fill">
+                    <i class="bi bi-images"></i> View Photos
+                  </a>
+                ` : ''}
+              </div>
+            </div>
           ` : ''}
         </div>
       `
@@ -167,8 +200,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // Update calendar links
       const eventDetails = {
         text: event.title,
-        details: description,
-        location: location,
+        details: `${props.guidance}\n\n${props.rideNotes || ''}`,
+        location: props.departLocation,
         start: event.start?.toISOString(),
         end: event.end?.toISOString()
       }
@@ -181,24 +214,50 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     events: [
       {
-        title: 'Meeting with Bob',
-        start: '2025-06-10T14:00:00',
-        end: '2025-06-10T15:00:00',
+        title: 'Sunday Social Ride',
+        start: '2025-06-08T09:30:00',
+        end: '2025-06-08T12:30:00',
         extendedProps: {
-          description: 'Discuss project status and next steps.',
-          location: 'Zoom Meeting'
+          rideType: 'Social',
+          departureTime: '09:30',
+          departLocation: 'Fleet Hargate Village Hall',
+          distance: '25 miles',
+          rideTime: '3 hours',
+          guidance: 'Suitable for beginners, no-drop ride, average speed 12-14mph',
+          rideNotes: 'Cafe stop at The Old Barn Tea Room. Bring cash for refreshments. Route mainly flat with some gentle hills.',
+          ridePhotosURL: 'https://example.com/rides/2025-06-08'
         }
       },
       {
-        title: 'Lunch with Sarah',
-        start: '2025-06-12T12:30:00',
-        end: '2025-06-12T13:30:00',
+        title: 'Thursday Training Ride',
+        start: '2025-06-12T18:00:00',
+        end: '2025-06-12T20:00:00',
         extendedProps: {
-          description: 'Catch-up lunch at the new cafe downtown.',
-          location: 'Downtown Cafe'
+          rideType: 'Training',
+          departureTime: '18:00',
+          departLocation: 'Fleet Hargate Sports Ground',
+          distance: '20 miles',
+          rideTime: '2 hours',
+          guidance: 'Intermediate level, faster-paced ride, average speed 16-18mph',
+          rideNotes: 'Chain gang formation practice. Bring lights if staying out late. No cafe stop.',
+          ridePhotosURL: 'https://example.com/rides/2025-06-12'
         }
-      }
-    ]
+      },
+      {
+        title: 'Saturday Adventure Ride',
+        start: '2025-06-14T08:00:00',
+        end: '2025-06-14T14:00:00',
+        extendedProps: {
+          rideType: 'Adventure',
+          departureTime: '08:00',
+          departLocation: 'Fleet Church Car Park',
+          distance: '45 miles',
+          rideTime: '6 hours',
+          guidance: 'Experienced riders, mixed terrain, average speed 14-16mph',
+          rideNotes: 'Long route with gravel sections. Two cafe stops planned. Bring spare tubes and tools. Route includes some challenging climbs.',
+          ridePhotosURL: 'https://example.com/rides/2025-06-14'
+        }
+      }    ]
   })
 
   // Add keyboard navigation support
