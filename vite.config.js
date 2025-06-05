@@ -4,6 +4,10 @@ import * as path from 'path'
 export default defineConfig({
   root: path.resolve(__dirname, 'src'),
   base: '/FullCalendar-POC/',
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
