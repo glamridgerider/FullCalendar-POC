@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     themeSystem: 'bootstrap5',
     initialView: 'dayGridMonth',
     headerToolbar: false, // Disable default header
+    fixedWeekCount: false, // Only show the rows needed for the current month
     loading: function(isLoading) {
       toggleLoading(isLoading)
     },
