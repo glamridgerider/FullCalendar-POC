@@ -14,6 +14,7 @@ import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
+import { calendarEvents } from './events-data.js'
 
 document.addEventListener('DOMContentLoaded', function () {
   // Add scroll detection for navbar
@@ -187,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </a>
                 ` : ''}
                 ${props.ridePhotosURL ? `
-                  <a href="${props.ridePhotosURL}/photos" target="_blank" class="btn btn-outline-primary flex-fill">
+                  <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
                     <i class="bi bi-images"></i> View Photos
                   </a>
                 ` : ''}
@@ -212,52 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Show modal
       modal.show()
     },
-    events: [
-      {
-        title: 'Sunday Social Ride',
-        start: '2025-06-08T09:30:00',
-        end: '2025-06-08T12:30:00',
-        extendedProps: {
-          rideType: 'Social',
-          departureTime: '09:30',
-          departLocation: 'Fleet Hargate Village Hall',
-          distance: '25 miles',
-          rideTime: '3 hours',
-          guidance: 'Suitable for beginners, no-drop ride, average speed 12-14mph',
-          rideNotes: 'Cafe stop at The Old Barn Tea Room. Bring cash for refreshments. Route mainly flat with some gentle hills.',
-          ridePhotosURL: 'https://example.com/rides/2025-06-08'
-        }
-      },
-      {
-        title: 'Thursday Training Ride',
-        start: '2025-06-12T18:00:00',
-        end: '2025-06-12T20:00:00',
-        extendedProps: {
-          rideType: 'Training',
-          departureTime: '18:00',
-          departLocation: 'Fleet Hargate Sports Ground',
-          distance: '20 miles',
-          rideTime: '2 hours',
-          guidance: 'Intermediate level, faster-paced ride, average speed 16-18mph',
-          rideNotes: 'Chain gang formation practice. Bring lights if staying out late. No cafe stop.',
-          ridePhotosURL: 'https://example.com/rides/2025-06-12'
-        }
-      },
-      {
-        title: 'Saturday Adventure Ride',
-        start: '2025-06-14T08:00:00',
-        end: '2025-06-14T14:00:00',
-        extendedProps: {
-          rideType: 'Adventure',
-          departureTime: '08:00',
-          departLocation: 'Fleet Church Car Park',
-          distance: '45 miles',
-          rideTime: '6 hours',
-          guidance: 'Experienced riders, mixed terrain, average speed 14-16mph',
-          rideNotes: 'Long route with gravel sections. Two cafe stops planned. Bring spare tubes and tools. Route includes some challenging climbs.',
-          ridePhotosURL: 'https://example.com/rides/2025-06-14'
-        }
-      }    ]
+    events: calendarEvents
   })
 
   // Add keyboard navigation support

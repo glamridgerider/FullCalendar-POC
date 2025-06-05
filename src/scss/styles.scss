@@ -349,3 +349,11 @@ $theme-colors: map-merge(
     }
   }
 }
+
+// Ride information styles
+.ride-info p,
+.ride-notes p {
+  white-space: pre-line;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
