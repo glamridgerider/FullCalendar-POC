@@ -2,10 +2,6 @@
 import '../scss/styles.scss'
 import '../css/calendar-styles.css'
 
-// Import styles
-import '../scss/styles.scss'
-import '../css/calendar-styles.css'
-
 // Import Bootstrap from node_modules
 import * as bootstrap from 'bootstrap'
 
