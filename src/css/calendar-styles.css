@@ -130,7 +130,7 @@
 /* Weekend header styling */
 .fc .fc-day-sun .fc-col-header-cell-cushion,
 .fc .fc-day-sat .fc-col-header-cell-cushion {
-  color: white !important;
+  color: #1e293b !important;
 }
 
 .fc-theme-standard .fc-scrollgrid-section-header th:first-child,
