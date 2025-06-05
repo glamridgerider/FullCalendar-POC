@@ -10,10 +10,9 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['@fullcalendar/core', '@fullcalendar/bootstrap5', '@fullcalendar/daygrid', '@fullcalendar/timegrid'],
-          bootstrap: ['bootstrap']
-        }
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js'
       }
     }
   },
