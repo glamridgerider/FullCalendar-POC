@@ -6,7 +6,15 @@ export default defineConfig({
   base: '/FullCalendar-POC/',
   build: {
     outDir: '../dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['@fullcalendar/core', '@fullcalendar/bootstrap5', '@fullcalendar/daygrid', '@fullcalendar/timegrid'],
+          bootstrap: ['bootstrap']
+        }
+      }
+    }
   },
   resolve: {
     alias: {
