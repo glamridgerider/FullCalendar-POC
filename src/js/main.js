@@ -157,7 +157,14 @@ document.addEventListener('DOMContentLoaded', function () {
           <div class="ride-logistics mb-3">
             <h6 class="details-section-title">Ride Details</h6>
             <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
-            <p class="mb-2"><strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}</p>
+            <p class="mb-2">
+              <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
+              ${props.departLocationURL ? `
+                <a href="${props.departLocationURL}" target="_blank" class="ms-2 text-primary" aria-label="View meeting point on map">
+                  <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+                </a>
+              ` : ''}
+            </p>
             <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
             <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
           </div>

@@ -3,51 +3,103 @@
  * Each event includes ride details, guidance, and related resources
  */
 export const calendarEvents = [
-  {
-    title: 'Alice in Wonderland',
-    start: '2025-06-14T09:00:00',
-    extendedProps: {
-      rideType: 'Longer Ride',
-      departureTime: '09:00',
-      departLocation: 'Regular Meeting Point',
-      distance: '38 miles',
-      rideTime: '3 hours',
-      guidance: `Mixed riding including Tarmac, a fun challenging ride!
+    {
+        title: 'Alice in Wonderland',
+        start: '2025-06-14T09:00:00',
+        extendedProps: {
+            rideType: 'Longer Ride',
+            departureTime: '09:00',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views,+Views+Recreation+Ground+car+park,+Farnborough+GU14+0EE/@51.2966581,-0.7557221,17z',
+            distance: '38 miles',
+            rideTime: '3 hours',
+            guidance: `Mixed riding including Tarmac, a fun challenging ride!
 This is not the usual near flat ride!
 Clockwise loop to Guildford, via Ash, Pirbright, Guildford
 Lunch stop at Watts Gallery
 Then onto Farnham and Fleet
 Make sure you have plenty of fluids and snacks`,
-      rideNotes: '',
-      ridePhotosURL: 'https://app.box.com/s/8x8r3uwnpdknokz5fbxnmq03pouj3e9x'
+            rideNotes: '',
+            ridePhotosURL: 'https://app.box.com/s/8x8r3uwnpdknokz5fbxnmq03pouj3e9x'
+        }
+    },
+    {
+        title: 'Regular Ride - Minley',
+        start: '2025-06-07T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views,+Views+Recreation+Ground+car+park,+Farnborough+GU14+0EE/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutesm 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start): Free Parking  .
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+            ridePhotosURL: 'https://example.com/rides/2025-06-12'
+        }
+    },
+    {
+        title: 'Regular Ride - Mytchett',
+        start: '2025-06-21T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views,+Views+Recreation+Ground+car+park,+Farnborough+GU14+0EE/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutesm 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+        }
+    },
+    {
+        title: 'Regular Ride - Lake House',
+        start: '2025-07-12T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views,+Views+Recreation+Ground+car+park,+Farnborough+GU14+0EE/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutesm 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+        }
+    },
+    {
+        title: 'Regular Ride - Odiham',
+        start: '2025-06-28T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views,+Views+Recreation+Ground+car+park,+Farnborough+GU14+0EE/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutesm 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+        }
+    },
+    {
+        title: 'Social - BBQ',
+        start: '2025-06-07T09:30:00',
+        extendedProps: {
+            rideType: 'Social',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views,+Views+Recreation+Ground+car+park,+Farnborough+GU14+0EE/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutesm 8-10mph',
+            guidance: `Bring your brolly and a chair, and a plate of food to share.`,
+            ridePhotosURL: 'https://example.com/rides/2025-06-12'
+        }
     }
-  },
-  {
-    title: 'Thursday Training Ride',
-    start: '2025-06-12T18:00:00',
-    extendedProps: {
-      rideType: 'Training',
-      departureTime: '18:00',
-      departLocation: 'Fleet Hargate Sports Ground',
-      distance: '20 miles',
-      rideTime: '2 hours',
-      guidance: 'Intermediate level, faster-paced ride, average speed 16-18mph',
-      rideNotes: 'Chain gang formation practice. Bring lights if staying out late. No cafe stop.',
-      ridePhotosURL: 'https://example.com/rides/2025-06-12'
-    }
-  },
-  {
-    title: 'Saturday Adventure Ride',
-    start: '2025-06-14T08:00:00',
-    extendedProps: {
-      rideType: 'Adventure',
-      departureTime: '08:00',
-      departLocation: 'Fleet Church Car Park',
-      distance: '45 miles',
-      rideTime: '6 hours',
-      guidance: 'Experienced riders, mixed terrain, average speed 14-16mph',
-      rideNotes: 'Long route with gravel sections. Two cafe stops planned. Bring spare tubes and tools. Route includes some challenging climbs.',
-      ridePhotosURL: 'https://example.com/rides/2025-06-14'
-    }
-  }
 ]
