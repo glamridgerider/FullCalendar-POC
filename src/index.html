@@ -22,12 +22,13 @@
       <div class="calendar-controls">
         <div class="nav-group">
           <button id="prevMonth" class="btn btn-icon" aria-label="Previous period" 
-            data-bs-toggle="tooltip" data-bs-placement="bottom" title="View previous month">
+            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Navigate to previous month">
             <i class="bi bi-chevron-left" aria-hidden="true"></i>
           </button>
-          <button id="today" class="btn btn-primary" aria-label="Go to today">Today</button>
+          <button id="today" class="btn btn-primary" aria-label="Go to today"
+            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jump to current month">Today</button>
           <button id="nextMonth" class="btn btn-icon" aria-label="Next period"
-            data-bs-toggle="tooltip" data-bs-placement="bottom" title="View next month">
+            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Navigate to next month">
             <i class="bi bi-chevron-right" aria-hidden="true"></i>
           </button>
         </div>
@@ -37,11 +38,11 @@
         <div class="view-controls">
           <div class="btn-group" role="group" aria-label="Calendar view options">
             <button type="button" class="btn btn-outline-primary" data-view="timeGridDay" aria-pressed="false"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View calendar by day">Day</button>
+              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View daily schedule">Day</button>
             <button type="button" class="btn btn-outline-primary" data-view="timeGridWeek" aria-pressed="false"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View calendar by week">Week</button>
+              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View weekly schedule">Week</button>
             <button type="button" class="btn btn-outline-primary" data-view="dayGridMonth" aria-pressed="true"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View calendar by month">Month</button>
+              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View monthly calendar">Month</button>
           </div>
         </div>
       </div>

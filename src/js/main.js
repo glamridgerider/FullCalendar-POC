@@ -137,10 +137,20 @@ document.addEventListener('DOMContentLoaded', function () {
       
       new bootstrap.Tooltip(info.el, {
         title: tooltipContent,
-        placement: 'top',
+        placement: 'auto',
         trigger: 'hover',
         container: 'body',
-        html: true
+        html: true,
+        boundary: 'window',
+        popperConfig: {
+          modifiers: [{
+            name: 'preventOverflow',
+            options: {
+              boundary: 'window',
+              padding: 8
+            }
+          }]
+        }
       })
     },
     datesSet: function(info) {
