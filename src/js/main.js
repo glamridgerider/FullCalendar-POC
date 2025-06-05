@@ -60,14 +60,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Format date and time in 24-hour format
   const formatDateTime = (date) => {
-    return new Date(date).toLocaleString('en-US', {
+    return new Date(date).toLocaleString('en-GB', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric'
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
     })
   }
 
@@ -106,8 +108,40 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth',
     headerToolbar: false, // Disable default header
     fixedWeekCount: false, // Only show the rows needed for the current month
+    slotLabelFormat: {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    },
+    eventTimeFormat: {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    },
     loading: function(isLoading) {
       toggleLoading(isLoading)
+    },
+    eventDidMount: function(info) {
+      // Add ride type as data attribute for styling
+      const rideType = info.event.extendedProps.rideType
+      if (rideType) {
+        info.el.setAttribute('data-ride-type', rideType)
+      }
+
+      // Create structured tooltip with formatted time and title
+      const departureTime = info.event.extendedProps.departureTime || 'TBA'
+      const tooltipContent = `<div class="event-tooltip">
+        <div class="event-tooltip-time">${departureTime}</div>
+        <div class="event-tooltip-title">${info.event.title}</div>
+      </div>`
+      
+      new bootstrap.Tooltip(info.el, {
+        title: tooltipContent,
+        placement: 'top',
+        trigger: 'hover',
+        container: 'body',
+        html: true
+      })
     },
     datesSet: function(info) {
       // Update the current month/year text
@@ -183,15 +217,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
           ${props.ridePhotosURL || props.ridePhotos ? `
             <div class="ride-photos">
-              <h6 class="details-section-title">Route & Photos</h6>
+              <h6 class="details-section-title">${props.rideType === 'Social' ? 'Photos' : 'Route & Photos'}</h6>
               <div class="action-buttons d-flex gap-3 justify-content-center">
-                ${props.ridePhotosURL ? `
+                ${props.rideType !== 'Social' && props.ridePhotosURL ? `
                   <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
                     <i class="bi bi-map"></i> View Route Details
                   </a>
                 ` : ''}
                 ${props.ridePhotosURL ? `
-                  <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
+                  <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${props.rideType === 'Social' ? 'w-50' : 'flex-fill'}">
                     <i class="bi bi-images"></i> View Photos
                   </a>
                 ` : ''}

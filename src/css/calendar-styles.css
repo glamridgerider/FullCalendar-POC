@@ -6,6 +6,15 @@
   position: relative;
 }
 
+/* Calendar wrapper */
+.calendar-wrapper {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
 /* Enhanced tooltip visibility */
 .fc .fc-toolbar {
   position: relative;
@@ -23,7 +32,27 @@
 }
 
 .tooltip-inner {
-  z-index: 9999 !important;
+  max-width: 300px !important;
+  padding: 0.5rem 0.75rem !important;
+  text-align: left !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.event-tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.event-tooltip-time {
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.event-tooltip-title {
+  color: white;
 }
 
 /* Ensure proper stacking context */
@@ -87,22 +116,61 @@
 /* Event styles */
 .fc-event {
   border: none !important;
-  border-radius: 4px !important;
-  padding: 2px 6px !important;
-  font-size: 0.875rem !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  margin: 2px 4px !important;
+}
+
+/* Remove the default event dot */
+.fc-daygrid-event-dot {
+  display: none !important;
+}
+
+/* Additional spacing for list view events since dot is removed */
+.fc-list-event {
+  padding-left: 8px !important;
+}
+
+.fc-event {
+  font-size: 0.95rem !important;
   font-weight: 500 !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  line-height: 1.4 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  min-height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
 }
 
 .fc-event:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -2px rgba(0, 0, 0, 0.12) !important;
+  filter: brightness(1.1) !important;
+}
+
+/* Regular Ride - Indigo color, our default theme color */
+.fc-event[data-ride-type="Regular Ride"] {
+  background-color: #4f46e5 !important;
+  border-left: 4px solid #3730a3 !important;
+}
+
+/* Longer Ride - Strong purple for more challenging rides */
+.fc-event[data-ride-type="Longer Ride"] {
+  background-color: #7e22ce !important;
+  border-left: 4px solid #581c87 !important;
+}
+
+/* Social - Teal color for fun, social events */
+.fc-event[data-ride-type="Social"] {
+  background-color: #0d9488 !important;
+  border-left: 4px solid #0f766e !important;
 }
 
 .fc-h-event {
-  background-color: #4f46e5 !important;
   border: none !important;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
 }
 
 /* Week and day view specific styles */
@@ -125,29 +193,42 @@
 .fc .fc-col-header-cell {
   padding: 0.75rem 0;
   background: #e0e7ff; /* Light indigo background for weekdays */
+  width: 14.28571% !important; /* Force equal width for all columns */
 }
 
 /* Weekend header styling */
-.fc .fc-day-sun .fc-col-header-cell-cushion,
-.fc .fc-day-sat .fc-col-header-cell-cushion {
-  color: #1e293b !important;
+.fc .fc-day-sun,
+.fc .fc-day-sat {
+  background-color: #fee2e2 !important; /* Light red background for weekend days */
 }
 
 .fc-theme-standard .fc-scrollgrid-section-header th:first-child,
 .fc-theme-standard .fc-scrollgrid-section-header th:last-child {
-  background: #ef4444 !important; /* Brighter red background for weekends */
+  background: #fee2e2 !important; /* Match weekend cell background */
 }
 
 .fc .fc-col-header-cell-cushion {
   padding: 8px;
   font-weight: 600;
-  color: #1e293b; /* Dark slate blue for weekday text */
+  color: #1e293b; /* Dark slate blue for text */
+  width: 100%; /* Ensure full width of header cell */
+  display: block; /* Make cushion take full width */
+  text-align: center; /* Center the text */
 }
 
-/* Make weekend days slightly stand out in the calendar body */
-.fc .fc-day-sun,
-.fc .fc-day-sat {
-  background-color: #fee2e2 !important; /* More prominent light red background */
+/* Weekend header text */
+.fc .fc-day-sun .fc-col-header-cell-cushion,
+.fc .fc-day-sat .fc-col-header-cell-cushion {
+  color: #1e293b !important; /* Same color as weekdays for better consistency */
+}
+
+/* Calendar grid adjustments */
+.fc .fc-daygrid-day {
+  border-right: 1px solid #e2e8f0;
+}
+
+.fc .fc-daygrid-day:last-child {
+  border-right: none;
 }
 
 /* More events popover */
@@ -238,6 +319,90 @@
 
 .action-buttons .btn i {
   font-size: 1.1em;
+}
+
+/* Calendar Legend */
+.calendar-legend {
+  position: sticky;
+  top: 87px; /* Fine-tuned to match the Sat header height */
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  background: white;
+  transition: all 0.3s ease;
+  margin-top: 0;
+  z-index: 1; /* Ensure legend appears above calendar content */
+}
+
+.calendar-legend:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-legend .card-header {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  border: none;
+  border-radius: 1rem 1rem 0 0 !important;
+  padding: 1rem;
+}
+
+.legend-title {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.legend-item:hover {
+  background-color: #f8fafc;
+}
+
+.legend-color {
+  width: 3rem;
+  height: 1.75rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.legend-item:hover .legend-color {
+  transform: translateX(2px);
+}
+
+/* Color indicators for each event type */
+.legend-item[data-ride-type="Regular Ride"] .legend-color {
+  background-color: #4f46e5;
+  border-left: 4px solid #3730a3;
+}
+
+.legend-item[data-ride-type="Longer Ride"] .legend-color {
+  background-color: #7e22ce;
+  border-left: 4px solid #581c87;
+}
+
+.legend-item[data-ride-type="Social"] .legend-color {
+  background-color: #0d9488;
+  border-left: 4px solid #0f766e;
 }
 
 /* Modal header and footer */
