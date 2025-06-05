@@ -3,7 +3,7 @@ import * as path from 'path'
 
 export default defineConfig({
   root: path.resolve(__dirname, 'src'),
-  base: './',
+  base: '/FullCalendar-POC/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -29,6 +29,7 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'src/index.html')
       }
-    }
+    },
+    sourcemap: true
   }
 })

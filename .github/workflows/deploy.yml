@@ -28,9 +28,15 @@ jobs:
       
       - name: Build
         run: npm run build
-
+        
       - name: List build output
-        run: pwd && ls -la
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -la
+          echo "Dist directory contents:"
+          ls -la dist || echo "dist directory not found"
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
