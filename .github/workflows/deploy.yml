@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: List build output
-        run: ls -la dist/
+        run: pwd && ls -la
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: dist/
+          path: dist
 
   deploy:
     environment:
