@@ -3,6 +3,48 @@
   max-width: 1200px;
   margin: 0 auto;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  position: relative;
+}
+
+/* Enhanced tooltip visibility */
+.fc .fc-toolbar {
+  position: relative;
+  z-index: 4;
+}
+
+.fc .fc-toolbar .fc-button {
+  position: relative;
+  z-index: 4;
+}
+
+/* Target Bootstrap tooltips specifically */
+.tooltip {
+  z-index: 9999 !important;
+}
+
+.tooltip-inner {
+  z-index: 9999 !important;
+}
+
+/* Ensure proper stacking context */
+.fc .fc-view-harness {
+  position: relative;
+  z-index: 1;
+}
+
+.fc-header-toolbar {
+  position: relative;
+  z-index: 4;
+}
+
+.fc .fc-toolbar .fc-button-group {
+  position: relative;
+  z-index: 4;
+}
+
+/* Prevent other elements from creating stacking contexts that might interfere */
+.fc-view-harness-active {
+  z-index: 1 !important;
 }
 
 /* Calendar header and controls */
@@ -88,7 +130,7 @@
 /* Weekend header styling */
 .fc .fc-day-sun .fc-col-header-cell-cushion,
 .fc .fc-day-sat .fc-col-header-cell-cushion {
-  /* color: #f06868 !important; */
+  color: white !important;
 }
 
 .fc-theme-standard .fc-scrollgrid-section-header th:first-child,
