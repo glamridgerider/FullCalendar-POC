@@ -392,27 +392,39 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   }
 
+  // Helper function to hide tooltip for a button
+  function hideTooltip(button) {
+    const tooltip = bootstrap.Tooltip.getInstance(button);
+    if (tooltip) {
+      tooltip.hide();
+    }
+  }
+
   // Add event listeners for navigation controls
-  document.getElementById('prevMonth').addEventListener('click', () => {
-    calendar.prev()
-  })
+  document.getElementById('prevMonth').addEventListener('click', (e) => {
+    hideTooltip(e.currentTarget);
+    calendar.prev();
+  });
 
-  document.getElementById('nextMonth').addEventListener('click', () => {
-    calendar.next()
-  })
+  document.getElementById('nextMonth').addEventListener('click', (e) => {
+    hideTooltip(e.currentTarget);
+    calendar.next();
+  });
 
-  document.getElementById('today').addEventListener('click', () => {
-    calendar.today()
-  })
+  document.getElementById('today').addEventListener('click', (e) => {
+    hideTooltip(e.currentTarget);
+    calendar.today();
+  });
 
   // View controls
   document.querySelectorAll('.view-controls .btn').forEach(button => {
     button.addEventListener('click', (e) => {
-      const view = e.target.dataset.view
-      calendar.changeView(view)
-      updateActiveViewButton(view)
-    })
-  })
+      hideTooltip(e.currentTarget);
+      const view = e.target.dataset.view;
+      calendar.changeView(view);
+      updateActiveViewButton(view);
+    });
+  });
 
   // Initialize calendar
   calendar.render()
