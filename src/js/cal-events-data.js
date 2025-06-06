@@ -19,7 +19,7 @@ export const calendarEvents = [
     //  Social Events
     {
         title: 'Summer BBQ 2025',
-        start: '2025-07-20T13:00:00',
+        start: '2025-06-07T13:00:00',
         eventType: 'Social',
         extendedProps: {
             location: `Andy's Garden`,
