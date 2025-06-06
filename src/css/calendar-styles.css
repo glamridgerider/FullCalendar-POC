@@ -308,7 +308,28 @@
 
 /* Event Modal Styles */
 .event-details {
-  font-size: 0.95rem;
+  font-size: 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.event-details p {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.event-details strong {
+  flex: 0 0 120px; /* Increased width for labels */
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.event-details span {
+  flex: 1;
+  line-height: 1.6;
+  color: #374151;
 }
 
 .event-details .badge {
@@ -547,6 +568,12 @@
   white-space: pre-line;
   line-height: 1.6;
   color: #1e293b;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  padding: 1rem;
+  background: rgba(79, 70, 229, 0.03);
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .ride-notes-text strong {

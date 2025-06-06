@@ -229,6 +229,18 @@ $theme-colors: map-merge(
   backdrop-filter: blur(8px);
 }
 
+// Modal dialog
+.modal-dialog {
+  max-width: 900px; // Increased from default 500px
+  margin: 1.75rem auto;
+  width: calc(100% - 2rem);
+
+  @include media-breakpoint-down(md) {
+    margin: 1rem auto;
+    width: calc(100% - 1rem);
+  }
+}
+
 // Modal styles
 .modal-content {
   border: none;
@@ -299,14 +311,17 @@ $theme-colors: map-merge(
 }
 
 .modal-body {
-  padding: 1.75rem;
+  padding: 2rem;
   background-color: $background-light;
 
   .event-details {
+    max-width: 100%;
+    margin: 0 auto;
+
     p {
       margin-bottom: 1.25rem;
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
       align-items: flex-start;
       color: $text-secondary;
       font-size: 1rem;
@@ -318,8 +333,7 @@ $theme-colors: map-merge(
 
       strong {
         color: $text-primary;
-        flex: 0 0 auto;
-        min-width: 80px;
+        flex: 0 0 120px;
         font-weight: 600;
         font-size: 0.875rem;
         text-transform: uppercase;
