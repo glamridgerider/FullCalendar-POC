@@ -442,6 +442,45 @@
   padding: 1.25rem 1.5rem;
 }
 
+/* Ride type-specific modal styling */
+[data-ride-type="Regular Ride"] .modal-header {
+  background: linear-gradient(135deg, #4f46e5, #3730a3);
+}
+
+[data-ride-type="Longer Ride"] .modal-header {
+  background: linear-gradient(135deg, #7e22ce, #581c87);
+}
+
+[data-ride-type="Social"] .modal-header {
+  background: linear-gradient(135deg, #0d9488, #0f766e);
+}
+
+/* Style modal title for colored headers */
+[data-ride-type] .modal-header .modal-title,
+[data-ride-type] .modal-header .btn-close {
+  color: white;
+}
+
+[data-ride-type] .modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Ride type badge styling */
+.badge[data-ride-type="Regular Ride"] {
+  background-color: #4f46e5 !important;
+  color: white;
+}
+
+.badge[data-ride-type="Longer Ride"] {
+  background-color: #7e22ce !important;
+  color: white;
+}
+
+.badge[data-ride-type="Social"] {
+  background-color: #0d9488 !important;
+  color: white;
+}
+
 .modal-footer {
   border-top: 2px solid #e2e8f0;
   padding: 1.25rem 1.5rem;

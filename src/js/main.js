@@ -195,11 +195,14 @@ document.addEventListener('DOMContentLoaded', function () {
       const content = document.createElement('div');
       content.className = 'event-details';
 
-      // Create ride header
+      // Create ride header and set ride type
+      const rideType = props.rideType || 'Ride';
+      eventModal.setAttribute('data-ride-type', rideType);
+      
       const rideHeader = document.createElement('div');
       rideHeader.className = 'ride-header mb-3';
       rideHeader.innerHTML = `
-        <span class="badge bg-primary">${props.rideType || 'Ride'}</span>
+        <span class="badge" data-ride-type="${rideType}">${rideType}</span>
         <p class="mt-2 mb-0">
           <strong>Date:</strong> ${startDate}
           ${endDate ? `<br><strong>End:</strong> ${endDate}` : ''}
