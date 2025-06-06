@@ -89,13 +89,12 @@ export const calendarEvents = [
             - Snacks and lunch money
             - Basic tools
             - Train fare for return`,
-            rideNotes: `Previous ride notes:
-            09:00 - 8 riders started from Fleet
-            11:00 - Coffee at Hampton Court
-            13:00 - Lunch by Tower Bridge
-            15:00 - Started return journey
-            17:00 - Train from Waterloo
-            
+            rideNotes: `09:00 - 8 riders started from Fleet<br>
+            11:00 - Coffee at Hampton Court<br>
+            13:00 - Lunch by Tower Bridge<br>
+            15:00 - Started return journey<br>
+            17:00 - Train from Waterloo<br>
+            <br>
             Route was mostly dry with good conditions.`,
             photosURL: 'https://app.box.com/s/example'
         }
