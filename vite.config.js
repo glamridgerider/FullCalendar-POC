@@ -1,8 +1,8 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import * as path from 'path'
 
 export default defineConfig({
-  root: path.resolve(__dirname, 'src'),
+  root: resolve(__dirname, 'src'),
   base: '/FullCalendar-POC/',
   build: {
     outDir: '../dist',
@@ -18,9 +18,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-      '@fullcalendar': path.resolve(__dirname, 'node_modules/@fullcalendar'),
+      '@': resolve(__dirname, './src'),
+      '~bootstrap': resolve(__dirname, 'node_modules/bootstrap'),
+      '@fullcalendar': resolve(__dirname, 'node_modules/@fullcalendar'),
     }
   },
   css: {
@@ -33,15 +33,5 @@ export default defineConfig({
   server: {
     port: 8080,
     hot: true
-  },
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'src/index.html')
-      }
-    },
-    sourcemap: true
   }
 })
