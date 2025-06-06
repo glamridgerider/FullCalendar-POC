@@ -212,6 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
       rideLogistics.className = 'ride-logistics mb-3';
       rideLogistics.innerHTML = `
         <h6 class="details-section-title">Ride Details</h6>
+        ${props.destination ? `<p class="mb-2"><strong>Destination:</strong> ${props.destination}</p>` : ''}
+        <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
+        <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
         <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
         <p class="mb-2">
           <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
@@ -221,8 +224,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
           ` : ''}
         </p>
-        <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
-        <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
       `;
       content.appendChild(rideLogistics);
 
@@ -237,7 +238,19 @@ document.addEventListener('DOMContentLoaded', function () {
       
       const guidanceText = document.createElement('div');
       guidanceText.className = 'guidance-text mb-2';
-      guidanceText.innerHTML = convertUrlsToLinks(props.guidance || '');
+      // Format guidance text, preserving line breaks and bullet points
+      const formattedGuidance = props.guidance 
+        ? props.guidance.split('\n').map(line => {
+            line = line.trim();
+            // Check for bullet points starting with '>' or '-'
+            if (line.startsWith('>') || line.startsWith('-')) {
+              return `<li>${line.substring(1).trim()}</li>`;
+            }
+            return line;
+          }).join('\n')
+        : '';
+      
+      guidanceText.innerHTML = convertUrlsToLinks(formattedGuidance);
       rideInfo.appendChild(guidanceText);
       
       content.appendChild(rideInfo);
@@ -246,10 +259,24 @@ document.addEventListener('DOMContentLoaded', function () {
       if (props.rideNotes) {
         const rideNotes = document.createElement('div');
         rideNotes.className = 'ride-notes mb-3';
-        rideNotes.innerHTML = `
-          <h6 class="details-section-title">Additional Notes</h6>
-          <p class="mb-2">${props.rideNotes}</p>
-        `;
+        
+        const notesTitle = document.createElement('h6');
+        notesTitle.className = 'details-section-title';
+        notesTitle.textContent = 'Ride Report';
+        rideNotes.appendChild(notesTitle);
+        
+        const notesText = document.createElement('div');
+        notesText.className = 'ride-notes-text';
+        // Format ride notes, preserving timestamps and structure
+        const formattedNotes = props.rideNotes.split('\n').map(line => {
+          line = line.trim();
+          // Highlight timestamps like "09:30" or "13:45"
+          return line.replace(/(\d{1,2}:\d{2})/g, '<strong>$1</strong>');
+        }).join('\n');
+        
+        notesText.innerHTML = convertUrlsToLinks(formattedNotes);
+        rideNotes.appendChild(notesText);
+        
         content.appendChild(rideNotes);
       }
 
@@ -438,6 +465,9 @@ document.addEventListener('DOMContentLoaded', function () {
             
             <div class="ride-logistics mb-3">
               <h6 class="details-section-title">Ride Details</h6>
+              ${props.destination ? `<p class="mb-2"><strong>Destination:</strong> ${props.destination}</p>` : ''}
+              <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
+              <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
               <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
               <p class="mb-2">
                 <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
@@ -447,8 +477,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   </a>
                 ` : ''}
               </p>
-              <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
-              <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
             </div>
 
             <div class="ride-info mb-3">
