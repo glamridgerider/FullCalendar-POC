@@ -210,24 +210,37 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
       content.appendChild(rideHeader);
 
-      // Create ride logistics
+      // Create ride logistics with selective display of available information
       const rideLogistics = document.createElement('div');
       rideLogistics.className = 'ride-logistics mb-3';
-      rideLogistics.innerHTML = `
-        <h6 class="details-section-title">Ride Details</h6>
-        ${props.destination ? `<p class="mb-2"><strong>Destination:</strong> ${props.destination}</p>` : ''}
-        <p class="mb-2"><strong>Distance:</strong> ${props.distance || 'TBA'}</p>
-        <p class="mb-2"><strong>Duration:</strong> ${props.rideTime || 'TBA'}</p>
-        <p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime || 'TBA'}</p>
-        <p class="mb-2">
-          <strong>Meeting Point:</strong> ${props.departLocation || 'TBA'}
+      
+      const logisticsContent = [];
+      logisticsContent.push('<h6 class="details-section-title">Event Details</h6>');
+      
+      if (props.destination) {
+        logisticsContent.push(`<p class="mb-2"><strong>Destination:</strong> ${props.destination}</p>`);
+      }
+      if (props.distance) {
+        logisticsContent.push(`<p class="mb-2"><strong>Distance:</strong> ${props.distance}</p>`);
+      }
+      if (props.rideTime) {
+        logisticsContent.push(`<p class="mb-2"><strong>Duration:</strong> ${props.rideTime}</p>`);
+      }
+      if (props.departureTime) {
+        logisticsContent.push(`<p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime}</p>`);
+      }
+      if (props.departLocation) {
+        logisticsContent.push(`<p class="mb-2">
+          <strong>Meeting Point:</strong> ${props.departLocation}
           ${props.departLocationURL ? `
             <a href="${props.departLocationURL}" target="_blank" class="ms-2 text-primary" aria-label="View meeting point on map">
               <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
             </a>
           ` : ''}
-        </p>
-      `;
+        </p>`);
+      }
+      
+      rideLogistics.innerHTML = logisticsContent.join('');
       content.appendChild(rideLogistics);
 
       // Create ride guidance with properly sanitized HTML content

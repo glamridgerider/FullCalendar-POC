@@ -333,14 +333,15 @@ All of these routes offer the option of a shorter ride, please ask for advice.`,
     },
     {
         title: 'Social - BBQ',
-        start: '2025-06-07T09:30:00',
+        start: '2025-06-07T13:00:00',
         extendedProps: {
             rideType: 'Social',
-            departureTime: '09:30',
+            destination: `Anydy's Place`,
+            // distance: '20 miles',
+            rideTime: '4 hrs',
+            departureTime: '13:00',
             departLocation: 'Regular Meeting Point',
             departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
-            distance: '20 miles',
-            rideTime: '90-120 minutes, 8-10mph',
             guidance: `Bring your brolly and a chair, and a plate of food to share.
 Afterwards beers at [The Heron](https://www.google.com/maps/place/The+Heron+On+Fleet/@51.2921671,-0.8280629,17z)`,
             ridePhotosURL: 'https://example.com/rides/2025-06-12'
