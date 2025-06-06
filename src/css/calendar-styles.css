@@ -563,17 +563,21 @@
 
 /* Bullet point styling for guidance text */
 .guidance-text li {
-  margin-left: 1.5rem;
-  padding-left: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-left: 1.25rem;
+  padding-left: 0.75rem;
+  margin-bottom: 0.75rem;
   position: relative;
+  list-style: none;
 }
 
 .guidance-text li::before {
   content: "•";
   position: absolute;
-  left: -1rem;
+  left: -1.25rem;
   color: #4f46e5;
+  font-size: 1.2em;
+  line-height: 1;
+  top: 0.1em;
 }
 
 /* Responsive adjustments */

@@ -241,13 +241,14 @@ document.addEventListener('DOMContentLoaded', function () {
       
       const guidanceText = document.createElement('div');
       guidanceText.className = 'guidance-text mb-2';
-      // Format guidance text, preserving line breaks and bullet points
+      // Format guidance text, preserving line breaks and converting bullet points
       const formattedGuidance = props.guidance 
         ? props.guidance.split('\n').map(line => {
             line = line.trim();
             // Check for bullet points starting with '>' or '-'
             if (line.startsWith('>') || line.startsWith('-')) {
-              return `<li>${line.substring(1).trim()}</li>`;
+              // Remove any existing bullet point characters and trim
+              return `<li>${line.replace(/^[>-]\s*/, '').trim()}</li>`;
             }
             return line;
           }).join('\n')
