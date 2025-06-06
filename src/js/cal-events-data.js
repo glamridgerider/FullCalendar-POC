@@ -16,6 +16,7 @@ const baseEventSchema = {
 }
 
 export const calendarEvents = [
+    //  Social Events
     {
         title: 'Summer BBQ 2025',
         start: '2025-07-20T13:00:00',
@@ -33,23 +34,34 @@ export const calendarEvents = [
             photosURL: 'https://app.box.com/s/example'
         }
     },
-    {
-        title: 'First Steps - Canal Path',
-        start: '2025-06-14T10:00:00',
+    // Beginner Rides
+        {
+        title: 'Beginner Ride',
+        start: '2025-04-26T09:45:00',
         eventType: 'Beginner Ride',
         extendedProps: {
-            meetLocation: 'Fleet Station Car Park',
-            meetLocationURL: 'https://www.google.com/maps/place/...',
-            duration: '60-90 minutes',
-            guidance: `Perfect for new riders:
-            - Flat terrain
-            - Mostly traffic-free
-            - Plenty of rest stops
-            - Experienced ride leader
-            
-            Please bring water and a snack.`
+            meetLocation: 'Pedal Heaven, Fleet',
+            meetLocationURL: 'https://www.google.com/maps/place/Pedal+Heaven/@51.2790949,-0.844389,16z/data=!3m2!4b1!5s0x48742be23c6c5dc3:0xb2e90a085a77fc81!4m6!3m5!1s0x48742be0259a9ee1:0x2d5baa586e814f11!8m2!3d51.2790949!4d-0.844389!16s%2Fg%2F1hc8w2lfk?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D',
+            duration: '30-60 minutes, average 6-8mph (9.5-13kph)',
+            guidance: `These are very social off-road rides, everyone helps and supports each other. They are just about getting out and riding, we don't care what you ride or what you wear, but please have appropriate tyres for the off-road conditions (muddy over Autumn/Winter!).<br>
+                        No bike, no problem! We have a couple of suitable bikes that we lend out if you wish to try out a ride.<br>
+                        Whether you are just starting out on your riding journey or want to use cycling to get a healthier lifestyle, this is an ideal starting point.`
         }
     },
+    {
+        title: 'Beginner Ride',
+        start: '2025-05-31T09:45:00',
+        eventType: 'Beginner Ride',
+        extendedProps: {
+            meetLocation: 'Pedal Heaven, Fleet',
+            meetLocationURL: 'https://www.google.com/maps/place/Pedal+Heaven/@51.2790949,-0.844389,16z/data=!3m2!4b1!5s0x48742be23c6c5dc3:0xb2e90a085a77fc81!4m6!3m5!1s0x48742be0259a9ee1:0x2d5baa586e814f11!8m2!3d51.2790949!4d-0.844389!16s%2Fg%2F1hc8w2lfk?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D',
+            duration: '30-60 minutes, average 6-8mph (9.5-13kph)',
+            guidance: `These are very social off-road rides, everyone helps and supports each other. They are just about getting out and riding, we don't care what you ride or what you wear, but please have appropriate tyres for the off-road conditions (muddy over Autumn/Winter!).<br>
+                        No bike, no problem! We have a couple of suitable bikes that we lend out if you wish to try out a ride.<br>
+                        Whether you are just starting out on your riding journey or want to use cycling to get a healthier lifestyle, this is an ideal starting point.`
+        }
+    },
+    // Regular Rides
     {
         title: 'Regular Ride - Farnham Loop',
         start: '2025-06-21T09:30:00',
@@ -59,7 +71,7 @@ export const calendarEvents = [
             rideDistance: '22 miles',
             rideDuration: '2.5-3 hours',
             meetLocation: 'Regular Meeting Point',
-            meetLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
+            meetLocationURL: `https://www.google.co.uk/maps/place/51%C2%B016'34.9%22N+0%C2%B050'33.0%22W/@51.276367,-0.842491,17z/data=!3m1!4b1!4m4!3m3!8m2!3d51.276367!4d-0.842491?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D`,
             guidance: `Mixed terrain route:
             - Canal towpath to Aldershot
             - Quiet roads through Badshot Lea
@@ -69,6 +81,7 @@ export const calendarEvents = [
             Moderate pace, no-drop ride.`
         }
     },
+    // Longer Rides
     {
         title: 'London Landmarks',
         start: '2025-07-06T09:00:00',
@@ -78,7 +91,7 @@ export const calendarEvents = [
             rideDistance: '56 miles',
             rideDuration: '7-8 hours',
             meetLocation: 'Fleet Station',
-            meetLocationURL: 'https://www.google.com/maps/place/...',
+            meetLocationURL: `https://www.google.co.uk/maps/place/51%C2%B016'34.9%22N+0%C2%B050'33.0%22W/@51.276367,-0.842491,17z/data=!3m1!4b1!4m4!3m3!8m2!3d51.276367!4d-0.842491?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D`,
             guidance: `Long distance adventure:
             - Mainly traffic-free routes
             - Multiple cafe stops
