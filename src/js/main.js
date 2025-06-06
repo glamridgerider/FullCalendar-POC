@@ -10,7 +10,7 @@ import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
-import { calendarEvents } from './events-data.js'
+import { calendarEvents } from './cal-events-data.js'
 
 document.addEventListener('DOMContentLoaded', function () {
   // Add scroll detection for navbar
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     eventDidMount: function(info) {
       // Add ride type as data attribute for styling
-      const rideType = info.event.extendedProps.rideType
+      const rideType = info.event.extendedProps.eventType || info.event.extendedProps.rideType
       if (rideType) {
         info.el.setAttribute('data-ride-type', rideType)
       }
@@ -195,8 +195,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const content = document.createElement('div');
       content.className = 'event-details';
 
-      // Create ride header and set ride type
-      const rideType = props.rideType || 'Ride';
+      // Create ride header and set ride type (support both old and new schema)
+      const rideType = props.eventType || props.rideType || 'Ride';
       eventModal.setAttribute('data-ride-type', rideType);
       
       const rideHeader = document.createElement('div');
@@ -210,34 +210,80 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
       content.appendChild(rideHeader);
 
-      // Create ride logistics with selective display of available information
+      // Create logistics with selective display of available information
       const rideLogistics = document.createElement('div');
       rideLogistics.className = 'ride-logistics mb-3';
       
       const logisticsContent = [];
       logisticsContent.push('<h6 class="details-section-title">Event Details</h6>');
       
-      if (props.destination) {
-        logisticsContent.push(`<p class="mb-2"><strong>Destination:</strong> ${props.destination}</p>`);
-      }
-      if (props.distance) {
-        logisticsContent.push(`<p class="mb-2"><strong>Distance:</strong> ${props.distance}</p>`);
-      }
-      if (props.rideTime) {
-        logisticsContent.push(`<p class="mb-2"><strong>Duration:</strong> ${props.rideTime}</p>`);
-      }
-      if (props.departureTime) {
-        logisticsContent.push(`<p class="mb-2"><strong>Departure Time:</strong> ${props.departureTime}</p>`);
-      }
-      if (props.departLocation) {
-        logisticsContent.push(`<p class="mb-2">
-          <strong>Meeting Point:</strong> ${props.departLocation}
-          ${props.departLocationURL ? `
-            <a href="${props.departLocationURL}" target="_blank" class="ms-2 text-primary" aria-label="View meeting point on map">
-              <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
-            </a>
-          ` : ''}
-        </p>`);
+      // Handle event details based on type
+      const isSocialEvent = rideType === 'Social';
+      
+      if (isSocialEvent) {
+        // For social events: show fields in schema order (location, duration)
+        if (props.location) {
+          const locationURL = props.locationURL;
+          logisticsContent.push(`<p class="mb-2">
+            <strong>Location:</strong> ${props.location}
+            ${locationURL ? `
+              <a href="${locationURL}" target="_blank" class="ms-2 text-primary" aria-label="View location on map">
+                <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+              </a>
+            ` : ''}
+          </p>`);
+        }
+
+        if (props.duration) {
+          logisticsContent.push(`<p class="mb-2"><strong>Duration:</strong> ${props.duration}</p>`);
+        }
+      } else if (rideType === 'Beginner Ride') {
+        // For beginner rides: show in schema order (meetLocation, duration)
+        if (props.meetLocation) {
+          const locationURL = props.meetLocationURL;
+          logisticsContent.push(`<p class="mb-2">
+            <strong>Meeting Point:</strong> ${props.meetLocation}
+            ${locationURL ? `
+              <a href="${locationURL}" target="_blank" class="ms-2 text-primary" aria-label="View location on map">
+                <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+              </a>
+            ` : ''}
+          </p>`);
+        }
+
+        if (props.duration) {
+          logisticsContent.push(`<p class="mb-2"><strong>Duration:</strong> ${props.duration}</p>`);
+        }
+      } else {
+        // For regular and longer rides: show in schema order
+        if (props.destination) {
+          logisticsContent.push(`<p class="mb-2"><strong>Destination:</strong> ${props.destination}</p>`);
+        }
+
+        if (props.distance || props.rideDistance) {
+          logisticsContent.push(`<p class="mb-2"><strong>Distance:</strong> ${props.distance || props.rideDistance || 'TBA'}</p>`);
+        }
+
+        if (props.duration || props.rideTime || props.rideDuration) {
+          logisticsContent.push(`<p class="mb-2"><strong>Duration:</strong> ${props.duration || props.rideTime || props.rideDuration || 'TBA'}</p>`);
+        }
+
+        if (props.departureTime) {
+          logisticsContent.push(`<p class="mb-2"><strong>Start Time:</strong> ${props.departureTime}</p>`);
+        }
+
+        if (props.meetLocation || props.departLocation) {
+          const location = props.meetLocation || props.departLocation;
+          const locationURL = props.meetLocationURL || props.departLocationURL;
+          logisticsContent.push(`<p class="mb-2">
+            <strong>Meeting Point:</strong> ${location}
+            ${locationURL ? `
+              <a href="${locationURL}" target="_blank" class="ms-2 text-primary" aria-label="View location on map">
+                <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+              </a>
+            ` : ''}
+          </p>`);
+        }
       }
       
       rideLogistics.innerHTML = logisticsContent.join('');
@@ -318,19 +364,19 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // Add optional photos/route section
-      if (props.ridePhotosURL || props.ridePhotos) {
+      if (props.routeURL || props.ridePhotosURL || props.photosURL || props.ridePhotos) {
         const ridePhotos = document.createElement('div');
         ridePhotos.className = 'ride-photos';
         ridePhotos.innerHTML = `
-          <h6 class="details-section-title">${props.rideType === 'Social' ? 'Photos' : 'Route & Photos'}</h6>
+          <h6 class="details-section-title">${isSocialEvent ? 'Photos' : 'Route & Photos'}</h6>
           <div class="action-buttons d-flex gap-3 justify-content-center">
-            ${props.rideType !== 'Social' && props.ridePhotosURL ? `
-              <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
+            ${!isSocialEvent && (props.routeURL || props.ridePhotosURL) ? `
+              <a href="${props.routeURL || props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
                 <i class="bi bi-map"></i> View Route Details
               </a>
             ` : ''}
-            ${props.ridePhotosURL ? `
-              <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${props.rideType === 'Social' ? 'w-50' : 'flex-fill'}">
+            ${props.photosURL || props.ridePhotosURL ? `
+              <a href="${props.photosURL || props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${isSocialEvent ? 'w-50' : 'flex-fill'}">
                 <i class="bi bi-images"></i> View Photos
               </a>
             ` : ''}

@@ -192,6 +192,12 @@
   border-left: 4px solid #581c87 !important;
 }
 
+/* Beginner Ride - Green color for easy rides */
+.fc-event[data-ride-type="Beginner Ride"] {
+  background-color: #16a34a !important;
+  border-left: 4px solid #15803d !important;
+}
+
 /* Social - Teal color for fun, social events */
 .fc-event[data-ride-type="Social"] {
   background-color: #0d9488 !important;
@@ -452,6 +458,11 @@
   border-left: 4px solid #581c87;
 }
 
+.legend-item[data-ride-type="Beginner Ride"] .legend-color {
+  background-color: #16a34a;
+  border-left: 4px solid #15803d;
+}
+
 .legend-item[data-ride-type="Social"] .legend-color {
   background-color: #0d9488;
   border-left: 4px solid #0f766e;
@@ -470,6 +481,10 @@
 
 [data-ride-type="Longer Ride"] .modal-header {
   background: linear-gradient(135deg, #7e22ce, #581c87);
+}
+
+[data-ride-type="Beginner Ride"] .modal-header {
+  background: linear-gradient(135deg, #16a34a, #15803d);
 }
 
 [data-ride-type="Social"] .modal-header {
@@ -494,6 +509,11 @@
 
 .badge[data-ride-type="Longer Ride"] {
   background-color: #7e22ce !important;
+  color: white;
+}
+
+.badge[data-ride-type="Beginner Ride"] {
+  background-color: #16a34a !important;
   color: white;
 }
 
