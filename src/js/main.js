@@ -241,22 +241,42 @@ document.addEventListener('DOMContentLoaded', function () {
       
       const guidanceText = document.createElement('div');
       guidanceText.className = 'guidance-text mb-2';
-      // Format guidance text, preserving line breaks and converting bullet points
-      const formattedGuidance = props.guidance 
-        ? props.guidance.split('\n').map(line => {
-            line = line.trim();
-            // Check for bullet points starting with '>' or '-'
-            if (line.startsWith('>') || line.startsWith('-')) {
-              // Remove any existing bullet point characters and trim
-              return `<li>${line.replace(/^[>-]\s*/, '').trim()}</li>`;
-            }
-            return line;
-          }).join('\n')
-        : '';
       
-      guidanceText.innerHTML = convertUrlsToLinks(formattedGuidance);
+      // Format guidance text, handling bullet points properly
+      if (props.guidance) {
+          const lines = props.guidance.split('\n');
+          let html = '';
+          let inList = false;
+          
+          for (const line of lines) {
+              const trimmedLine = line.trim();
+              if (!trimmedLine) continue;
+              
+              if (trimmedLine.startsWith('>') || trimmedLine.startsWith('-')) {
+                  if (!inList) {
+                      html += '<ul class="guidance-list">';
+                      inList = true;
+                  }
+                  html += `<li>${trimmedLine.replace(/^[>-]\s*/, '').trim()}</li>`;
+              } else {
+                  if (inList) {
+                      html += '</ul>';
+                      inList = false;
+                  }
+                  html += `<p>${trimmedLine}</p>`;
+              }
+          }
+          
+          if (inList) {
+              html += '</ul>';
+          }
+          
+          guidanceText.innerHTML = convertUrlsToLinks(html);
+      } else {
+          guidanceText.innerHTML = 'No specific guidance provided.';
+      }
+      
       rideInfo.appendChild(guidanceText);
-      
       content.appendChild(rideInfo);
 
       // Add optional ride notes
@@ -443,23 +463,19 @@ document.addEventListener('DOMContentLoaded', function () {
     
     let processedText = text;
 
-    // First handle Markdown-style links: [text](url)
+    // Handle Markdown-style links: [text](url)
     processedText = processedText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
       const sanitizedUrl = encodeURI(url.trim());
       const sanitizedText = linkText.trim().replace(/[<>]/g, '');
-      
       return `<a href="${sanitizedUrl}" target="_blank" rel="noopener noreferrer">${sanitizedText}</a>`;
     });
     
-    // Then handle plain URLs
-    const urlRegex = /(?<!["'(\[])https?:\/\/[^\s<>)"'\]]+/g;
+    // Handle plain URLs only if they're not already in an HTML tag
+    const urlRegex = /(?<!["'(\[<])https?:\/\/[^\s<>)"'\]]+/g;
     processedText = processedText.replace(urlRegex, url => {
       const sanitizedUrl = encodeURI(url.trim());
       return `<a href="${sanitizedUrl}" target="_blank" rel="noopener noreferrer">${url}</a>`;
     });
-
-    // Replace newlines with <br> tags for proper line breaks
-    processedText = processedText.replace(/\n/g, '<br>');
     
     return processedText;
   }

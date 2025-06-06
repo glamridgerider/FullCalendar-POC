@@ -266,71 +266,71 @@ export const calendarEvents = [
         }
     },    
 
-//     {
-//         title: 'Regular Ride - Minley',
-//         start: '2025-06-07T09:30:00',
-//         extendedProps: {
-//             rideType: 'Regular Ride',
-//             departureTime: '09:30',
-//             departLocation: 'Regular Meeting Point',
-//             departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
-//             distance: '20 miles',
-//             rideTime: '90-120 minutes, 8-10mph',
-//             guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start): Free Parking  .
-// All easy going routes.
-// Aim to be back in Fleet around Noon.
-// All of these routes offer the option of a shorter ride, please ask for advice.`,
-//             ridePhotosURL: 'https://example.com/rides/2025-06-12'
-//         }
-//     },
-//     {
-//         title: 'Regular Ride - Mytchett',
-//         start: '2025-06-21T09:30:00',
-//         extendedProps: {
-//             rideType: 'Regular Ride',
-//             departureTime: '09:30',
-//             departLocation: 'Regular Meeting Point',
-//             departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
-//             distance: '20 miles',
-//             rideTime: '90-120 minutes, 8-10mph',
-//             guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
-// All easy going routes.
-// Aim to be back in Fleet around Noon.
-// All of these routes offer the option of a shorter ride, please ask for advice.`,
-//         }
-//     },
-//     {
-//         title: 'Regular Ride - Lake House',
-//         start: '2025-07-12T09:30:00',
-//         extendedProps: {
-//             rideType: 'Regular Ride',
-//             departureTime: '09:30',
-//             departLocation: 'Regular Meeting Point',
-//             departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
-//             distance: '20 miles',
-//             rideTime: '90-120 minutes, 8-10mph',
-//             guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
-// All easy going routes.
-// Aim to be back in Fleet around Noon.
-// All of these routes offer the option of a shorter ride, please ask for advice.`,
-//         }
-//     },
-//     {
-//         title: 'Regular Ride - Odiham',
-//         start: '2025-06-28T09:30:00',
-//         extendedProps: {
-//             rideType: 'Regular Ride',
-//             departureTime: '09:30',
-//             departLocation: 'Regular Meeting Point',
-//             departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
-//             distance: '20 miles',
-//             rideTime: '90-120 minutes, 8-10mph',
-//             guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
-// All easy going routes.
-// Aim to be back in Fleet around Noon.
-// All of these routes offer the option of a shorter ride, please ask for advice.`,
-//         }
-//     },
+    {
+        title: 'Regular Ride - Minley',
+        start: '2025-06-07T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutes, 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start): Free Parking  .
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+            ridePhotosURL: 'https://example.com/rides/2025-06-12'
+        }
+    },
+    {
+        title: 'Regular Ride - Mytchett',
+        start: '2025-06-21T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutes, 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+        }
+    },
+    {
+        title: 'Regular Ride - Lake House',
+        start: '2025-07-12T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutes, 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+        }
+    },
+    {
+        title: 'Regular Ride - Odiham',
+        start: '2025-06-28T09:30:00',
+        extendedProps: {
+            rideType: 'Regular Ride',
+            departureTime: '09:30',
+            departLocation: 'Regular Meeting Point',
+            departLocationURL: 'https://www.google.com/maps/place/The+Views+Recreation+Ground+Car+Park/@51.2966581,-0.7557221,17z',
+            distance: '20 miles',
+            rideTime: '90-120 minutes, 8-10mph',
+            guidance: `If driving to Meet Point, the car park is a pay car park. Alternatively park for free on Dinorben Avenue (1 minute from start).
+All easy going routes.
+Aim to be back in Fleet around Noon.
+All of these routes offer the option of a shorter ride, please ask for advice.`,
+        }
+    },
     {
         title: 'Social - BBQ',
         start: '2025-06-07T09:30:00',
