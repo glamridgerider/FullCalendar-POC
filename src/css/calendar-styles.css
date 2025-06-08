@@ -76,7 +76,7 @@
 
 .event-tooltip-time {
   font-weight: 600;
-  color: #4f46e5;
+  color: white;
   font-size: 0.95rem;
 }
 
@@ -84,6 +84,7 @@
   color: white;
   font-size: 0.9rem;
   line-height: 1.4;
+  opacity: 0.9; /* Slightly dimmed to create visual hierarchy */
 }
 
 /* Ensure proper stacking context */

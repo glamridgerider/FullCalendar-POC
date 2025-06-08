@@ -123,9 +123,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // Create structured tooltip with formatted time and title
-      const departureTime = info.event.extendedProps.departureTime || 'TBA'
+      let displayTime;
+      if (info.event.extendedProps.departureTime) {
+        displayTime = info.event.extendedProps.departureTime;
+      } else if (info.event.start) {
+        displayTime = info.event.start.toLocaleTimeString('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+      } else {
+        displayTime = 'TBA';
+      }
+
       const tooltipContent = `<div class="event-tooltip">
-        <div class="event-tooltip-time">${departureTime}</div>
+        <div class="event-tooltip-time">${displayTime}</div>
         <div class="event-tooltip-title">${info.event.title}</div>
       </div>`
       
@@ -196,8 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const rideHeader = document.createElement('div');
       rideHeader.className = 'ride-header mb-3';
       rideHeader.innerHTML = `
-        <span class="badge" data-ride-type="${rideType}">${rideType}</span>
-        <p class="mt-2 mb-0">
+        <p class="mb-0">
           <strong>Date:</strong> ${startDate}
           ${endDate ? `<br><strong>End:</strong> ${endDate}` : ''}
         </p>
