@@ -8,7 +8,6 @@ import * as bootstrap from 'bootstrap'
 // Import FullCalendar and its plugins
 import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 import { calendarEvents } from './cal-events-data.js'
 
@@ -103,16 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   const calendar = new Calendar(calendarEl, {
-    plugins: [dayGridPlugin, timeGridPlugin, bootstrap5Plugin],
+    plugins: [dayGridPlugin, bootstrap5Plugin],
     themeSystem: 'bootstrap5',
     initialView: 'dayGridMonth',
     headerToolbar: false, // Disable default header
     fixedWeekCount: false, // Only show the rows needed for the current month
-    slotLabelFormat: {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    },
     eventTimeFormat: {
       hour: '2-digit',
       minute: '2-digit',
@@ -438,39 +432,8 @@ document.addEventListener('DOMContentLoaded', function () {
           calendar.today()
         }
         break
-      case 'm':
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault()
-          calendar.changeView('dayGridMonth')
-          updateActiveViewButton('dayGridMonth')
-        }
-        break
-      case 'w':
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault()
-          calendar.changeView('timeGridWeek')
-          updateActiveViewButton('timeGridWeek')
-        }
-        break
-      case 'd':
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault()
-          calendar.changeView('timeGridDay')
-          updateActiveViewButton('timeGridDay')
-        }
-        break
     }
   })
-
-  // Update active view button helper
-  function updateActiveViewButton(viewName) {
-    document.querySelectorAll('.view-controls .btn').forEach(btn => {
-      btn.classList.remove('active')
-      if (btn.dataset.view === viewName) {
-        btn.classList.add('active')
-      }
-    })
-  }
 
   // Helper function to hide tooltip for a button
   function hideTooltip(button) {
@@ -496,21 +459,8 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.today();
   });
 
-  // View controls
-  document.querySelectorAll('.view-controls .btn').forEach(button => {
-    button.addEventListener('click', (e) => {
-      hideTooltip(e.currentTarget);
-      const view = e.target.dataset.view;
-      calendar.changeView(view);
-      updateActiveViewButton(view);
-    });
-  });
-
   // Initialize calendar
   calendar.render()
-
-  // Set initial active view button
-  updateActiveViewButton('dayGridMonth')
 
   /**
    * Convert URLs and Markdown-style links to clickable HTML links

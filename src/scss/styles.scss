@@ -99,10 +99,24 @@ $theme-colors: map-merge(
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    position: relative;
 
     @include media-breakpoint-down(md) {
       flex-direction: column;
       gap: 1.5rem;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+
+      @include media-breakpoint-down(md) {
+        position: static;
+        transform: none;
+        order: -1;
+      }
     }
   }
 
@@ -110,6 +124,14 @@ $theme-colors: map-merge(
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    
+    &.invisible {
+      visibility: hidden;
+
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
 
     .btn-icon {
       width: 40px;

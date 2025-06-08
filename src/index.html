@@ -32,18 +32,20 @@
             <i class="bi bi-chevron-right" aria-hidden="true"></i>
           </button>
         </div>
-        <div class="current-date" aria-live="polite">
-          <h2 id="currentMonthYear" class="h4 mb-0">June 2025</h2>
-        </div>
-        <div class="view-controls">
-          <div class="btn-group" role="group" aria-label="Calendar view options">
-            <button type="button" class="btn btn-outline-primary" data-view="timeGridDay" aria-pressed="false"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View daily schedule">Day</button>
-            <button type="button" class="btn btn-outline-primary" data-view="timeGridWeek" aria-pressed="false"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View weekly schedule">Week</button>
-            <button type="button" class="btn btn-outline-primary" data-view="dayGridMonth" aria-pressed="true"
-              data-bs-toggle="tooltip" data-bs-placement="bottom" title="View monthly calendar">Month</button>
+        <div class="nav-center">
+          <div class="current-date" aria-live="polite">
+            <h2 id="currentMonthYear" class="h4 mb-0">June 2025</h2>
           </div>
+        </div>
+        <div class="nav-group invisible">
+          <!-- Invisible spacer to balance the layout -->
+          <button class="btn btn-icon invisible" aria-hidden="true">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="btn btn-primary invisible" aria-hidden="true">Today</button>
+          <button class="btn btn-icon invisible" aria-hidden="true">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
