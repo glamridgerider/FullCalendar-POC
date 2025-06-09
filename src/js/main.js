@@ -446,27 +446,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   })
 
-  // Helper function to hide tooltip for a button
-  function hideTooltip(button) {
+  // Helper function to handle tooltip for navigation buttons
+  function handleTooltip(button) {
     const tooltip = bootstrap.Tooltip.getInstance(button);
     if (tooltip) {
-      tooltip.hide();
+      tooltip.dispose(); // Properly dispose of the tooltip
+      // Reinitialize the tooltip
+      new bootstrap.Tooltip(button, {
+        title: button.getAttribute('title'),
+        placement: 'bottom',
+        trigger: 'hover'
+      });
     }
   }
 
   // Add event listeners for navigation controls
   document.getElementById('prevMonth').addEventListener('click', (e) => {
-    hideTooltip(e.currentTarget);
+    handleTooltip(e.currentTarget);
     calendar.prev();
   });
 
   document.getElementById('nextMonth').addEventListener('click', (e) => {
-    hideTooltip(e.currentTarget);
+    handleTooltip(e.currentTarget);
     calendar.next();
   });
 
   document.getElementById('today').addEventListener('click', (e) => {
-    hideTooltip(e.currentTarget);
+    handleTooltip(e.currentTarget);
     calendar.today();
   });
 
