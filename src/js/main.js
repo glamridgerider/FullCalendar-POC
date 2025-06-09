@@ -44,6 +44,32 @@ document.addEventListener('DOMContentLoaded', function () {
     focus: true
   })
 
+  // Handle tooltip cleanup when modal opens/closes
+  eventModal.addEventListener('show.bs.modal', () => {
+    // Hide all event tooltips when modal opens
+    document.querySelectorAll('.fc-event').forEach(eventEl => {
+      if (eventEl.tooltip) {
+        eventEl.tooltip.hide();
+      }
+    });
+  });
+
+  eventModal.addEventListener('hidden.bs.modal', () => {
+    // Re-enable tooltips after modal closes
+    document.querySelectorAll('.fc-event').forEach(eventEl => {
+      if (eventEl.tooltip) {
+        eventEl.tooltip.dispose();
+        eventEl.tooltip = new bootstrap.Tooltip(eventEl, {
+          title: eventEl.getAttribute('data-bs-original-title'),
+          placement: 'auto',
+          trigger: 'hover',
+          container: 'body',
+          html: true
+        });
+      }
+    });
+  });
+
   // Add loading indicator
   const toggleLoading = (show) => {
     isLoading = show
@@ -136,12 +162,13 @@ document.addEventListener('DOMContentLoaded', function () {
         displayTime = 'TBA';
       }
 
+      // Store tooltip instance on the element for later access
       const tooltipContent = `<div class="event-tooltip">
         <div class="event-tooltip-time">${displayTime}</div>
         <div class="event-tooltip-title">${info.event.title}</div>
       </div>`
       
-      new bootstrap.Tooltip(info.el, {
+      const tooltip = new bootstrap.Tooltip(info.el, {
         title: tooltipContent,
         placement: 'auto',
         trigger: 'hover',
@@ -158,6 +185,9 @@ document.addEventListener('DOMContentLoaded', function () {
           }]
         }
       })
+      
+      // Store tooltip instance on the element
+      info.el.tooltip = tooltip;
     },
     datesSet: function(info) {
       // Update the current month/year text
