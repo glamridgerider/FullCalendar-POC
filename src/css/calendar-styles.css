@@ -28,7 +28,7 @@
 
 /* Target Bootstrap tooltips specifically */
 .tooltip {
-  z-index: 9999 !important;
+  z-index: 1025 !important; /* Below the modal's z-index of 1055 */
   position: absolute;
 }
 
@@ -41,6 +41,11 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
   border-radius: 0.5rem !important;
   color: white !important;
+}
+
+/* Hide tooltips when modal is open */
+.modal.show ~ .tooltip {
+  display: none !important;
 }
 
 /* Event-specific tooltip styles */

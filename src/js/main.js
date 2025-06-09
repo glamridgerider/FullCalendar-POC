@@ -22,9 +22,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Initialize all tooltips
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  // Initialize tooltips for navigation buttons
+  function initializeNavTooltips() {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+      const existingTooltip = bootstrap.Tooltip.getInstance(el);
+      if (existingTooltip) {
+        existingTooltip.dispose();
+      }
+      new bootstrap.Tooltip(el, {
+        placement: 'bottom',
+        trigger: 'hover',
+        boundary: 'window'
+      });
+    });
+  }
+  
+  // Initial tooltip setup
+  initializeNavTooltips();
 
   const calendarEl = document.getElementById('calendar')
   const eventModal = document.getElementById('eventModal')
@@ -46,29 +60,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Handle tooltip cleanup when modal opens/closes
   eventModal.addEventListener('show.bs.modal', () => {
-    // Hide all event tooltips when modal opens
+    // Hide and dispose all event tooltips when modal opens
     document.querySelectorAll('.fc-event').forEach(eventEl => {
       if (eventEl.tooltip) {
-        eventEl.tooltip.hide();
+        eventEl.tooltip.dispose();
+        eventEl.tooltip = null;
+      }
+    });
+    // Also dispose nav button tooltips
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+      const tooltip = bootstrap.Tooltip.getInstance(el);
+      if (tooltip) {
+        tooltip.dispose();
       }
     });
   });
 
   eventModal.addEventListener('hidden.bs.modal', () => {
     // Re-enable tooltips after modal closes
+    initializeNavTooltips(); // Re-initialize navigation tooltips first
+    
     document.querySelectorAll('.fc-event').forEach(eventEl => {
-      if (eventEl.tooltip) {
-        eventEl.tooltip.dispose();
+      // Only recreate if not already exists
+      if (!eventEl.tooltip) {
         eventEl.tooltip = new bootstrap.Tooltip(eventEl, {
           title: eventEl.getAttribute('data-bs-original-title'),
           placement: 'auto',
           trigger: 'hover',
           container: 'body',
-          html: true
+          html: true,
+          boundary: 'window',
+          popperConfig: {
+            modifiers: [{
+              name: 'preventOverflow',
+              options: {
+                boundary: 'window'
+              }
+            }]
+          }
         });
       }
     });
-  });
+    });
 
   // Add loading indicator
   const toggleLoading = (show) => {
@@ -162,6 +195,11 @@ document.addEventListener('DOMContentLoaded', function () {
         displayTime = 'TBA';
       }
 
+      // Don't create tooltip if modal is open
+      if (document.querySelector('.modal.show')) {
+        return;
+      }
+
       // Store tooltip instance on the element for later access
       const tooltipContent = `<div class="event-tooltip">
         <div class="event-tooltip-time">${displayTime}</div>
@@ -175,9 +213,16 @@ document.addEventListener('DOMContentLoaded', function () {
         container: 'body',
         html: true,
         boundary: 'window',
+        offset: [0, 8], // Add some offset to prevent overlap
         popperConfig: {
           modifiers: [{
             name: 'preventOverflow',
+            options: {
+              boundary: 'window',
+              padding: 8
+            }
+          }, {
+            name: 'flip',
             options: {
               boundary: 'window',
               padding: 8
@@ -481,13 +526,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const tooltip = bootstrap.Tooltip.getInstance(button);
     if (tooltip) {
       tooltip.dispose(); // Properly dispose of the tooltip
-      // Reinitialize the tooltip
-      new bootstrap.Tooltip(button, {
-        title: button.getAttribute('title'),
-        placement: 'bottom',
-        trigger: 'hover'
-      });
     }
+    // Always reinitialize the tooltip
+    new bootstrap.Tooltip(button, {
+      title: button.getAttribute('data-bs-original-title'),
+      placement: 'bottom',
+      trigger: 'hover',
+      boundary: 'window'
+    });
   }
 
   // Add event listeners for navigation controls
