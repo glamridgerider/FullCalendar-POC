@@ -22,16 +22,17 @@ export const calendarEvents = [
         start: '2025-06-07T13:00:00',
         eventType: 'Social',
         extendedProps: {
-            location: `Andy's Garden`,
-            locationURL: 'https://www.google.com/maps/place/...',
+            location: `Andy's Back Garden`,
+            locationURL: 'https://maps.app.goo.gl/ovmAc6gVjGjjT7hi9',
             duration: '4 hours',
             guidance: `Please bring:
             - A plate of food to share
             - Your own drinks
             - A chair if possible
+            - Sunscreen and a hat if it's sunny and an umbrella if it's not!
             
-            After the BBQ we'll head to [The Fox](https://www.google.com/maps/place/...) for drinks.`,
-            photosURL: 'https://app.box.com/s/example'
+            After the BBQ we'll head to [Heron on the Lake](https://maps.app.goo.gl/DUENfuohF1N5b7rq6) for drinks.`,
+            photosURL: 'https://app.box.com/s/tr4kih7u7bv0oc77j676uyo8yym2ui29'
         }
     },
     // Beginner Rides
@@ -41,75 +42,88 @@ export const calendarEvents = [
         eventType: 'Beginner Ride',
         extendedProps: {
             meetLocation: 'Pedal Heaven, Fleet',
-            meetLocationURL: 'https://www.google.com/maps/place/Pedal+Heaven/@51.2790949,-0.844389,16z/data=!3m2!4b1!5s0x48742be23c6c5dc3:0xb2e90a085a77fc81!4m6!3m5!1s0x48742be0259a9ee1:0x2d5baa586e814f11!8m2!3d51.2790949!4d-0.844389!16s%2Fg%2F1hc8w2lfk?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D',
+            meetLocationURL: 'https://maps.app.goo.gl/ovmAc6gVjGjjT7hi9',
             duration: '30-60 minutes, average 6-8mph (9.5-13kph)',
             guidance: `These are very social off-road rides, everyone helps and supports each other. They are just about getting out and riding, we don't care what you ride or what you wear, but please have appropriate tyres for the off-road conditions (muddy over Autumn/Winter!).<br>
                         No bike, no problem! We have a couple of suitable bikes that we lend out if you wish to try out a ride.<br>
                         Whether you are just starting out on your riding journey or want to use cycling to get a healthier lifestyle, this is an ideal starting point.`
         }
     },
+
     {
         title: 'Beginner Ride',
         start: '2025-05-31T09:45:00',
         eventType: 'Beginner Ride',
         extendedProps: {
             meetLocation: 'Pedal Heaven, Fleet',
-            meetLocationURL: 'https://www.google.com/maps/place/Pedal+Heaven/@51.2790949,-0.844389,16z/data=!3m2!4b1!5s0x48742be23c6c5dc3:0xb2e90a085a77fc81!4m6!3m5!1s0x48742be0259a9ee1:0x2d5baa586e814f11!8m2!3d51.2790949!4d-0.844389!16s%2Fg%2F1hc8w2lfk?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D',
+            meetLocationURL: 'https://maps.app.goo.gl/ovmAc6gVjGjjT7hi9',
             duration: '30-60 minutes, average 6-8mph (9.5-13kph)',
             guidance: `These are very social off-road rides, everyone helps and supports each other. They are just about getting out and riding, we don't care what you ride or what you wear, but please have appropriate tyres for the off-road conditions (muddy over Autumn/Winter!).<br>
                         No bike, no problem! We have a couple of suitable bikes that we lend out if you wish to try out a ride.<br>
                         Whether you are just starting out on your riding journey or want to use cycling to get a healthier lifestyle, this is an ideal starting point.`
         }
     },
+
     // Regular Rides
     {
-        title: 'Regular Ride - Farnham Loop',
+        title: 'Regular Ride - Mytchett',
         start: '2025-06-21T09:30:00',
         eventType: 'Regular Ride',
         extendedProps: {
-            destination: 'Farnham via Canal Path',
-            rideDistance: '22 miles',
-            rideDuration: '2.5-3 hours',
+            destination: 'Mytchett',
+            rideDistance: '17 miles',
+            rideDuration: '1.5-2 hours',
             meetLocation: 'Regular Meeting Point',
-            meetLocationURL: `https://www.google.co.uk/maps/place/51%C2%B016'34.9%22N+0%C2%B050'33.0%22W/@51.276367,-0.842491,17z/data=!3m1!4b1!4m4!3m3!8m2!3d51.276367!4d-0.842491?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D`,
-            guidance: `Mixed terrain route:
-            - Canal towpath to Aldershot
-            - Quiet roads through Badshot Lea
-            - Coffee stop at Farnham Park
-            - Return via North Camp
-            
-            Moderate pace, no-drop ride.`
+            meetLocationURL: `https://maps.app.goo.gl/nPWoEP72g2LS9NqW6`,
+            guidance: `Out along the canal to Mytchet Canal Centre cafe. Return via Canal and a short cut via North Camp.`
         }
     },
+    {
+        title: 'Regular Ride - Odiham',
+        start: '2025-06-28T09:30:00',
+        eventType: 'Regular Ride',
+        extendedProps: {
+            destination: 'Odiham',
+            rideDistance: '18 miles',
+            rideDuration: '1.5-2 hours',
+            meetLocation: 'Regular Meeting Point',
+            meetLocationURL: `https://maps.app.goo.gl/nPWoEP72g2LS9NqW6`,
+            guidance: `Out along the canal to Odiham, stop at Cafe in Odiham high street. Return via section of King Alfreds Way (KAW) and canal.`
+        }
+    },
+    {
+        title: 'Regular Ride - Lake House',
+        start: '2025-07-12T09:30:00',
+        eventType: 'Regular Ride',
+        extendedProps: {
+            destination: 'Lake House',
+            rideDistance: '17 miles',
+            rideDuration: '1.5-2 hours',
+            meetLocation: 'Regular Meeting Point',
+            meetLocationURL: `https://maps.app.goo.gl/nPWoEP72g2LS9NqW6`,
+            guidance: `Out along the canal, around Fleet Pond, section of canal, then through to North Camp, on to the Lake House. Return via canal.`
+        }
+    },
+
     // Longer Rides
     {
-        title: 'London Landmarks',
-        start: '2025-07-06T09:00:00',
+        title: 'Lock, Stock and Barrel',
+        start: '2024-02-17T09:30:00',
         eventType: 'Longer Ride',
         extendedProps: {
-            destination: 'Central London via Thames Path',
-            rideDistance: '56 miles',
-            rideDuration: '7-8 hours',
-            meetLocation: 'Fleet Station',
-            meetLocationURL: `https://www.google.co.uk/maps/place/51%C2%B016'34.9%22N+0%C2%B050'33.0%22W/@51.276367,-0.842491,17z/data=!3m1!4b1!4m4!3m3!8m2!3d51.276367!4d-0.842491?entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D`,
-            guidance: `Long distance adventure:
-            - Mainly traffic-free routes
-            - Multiple cafe stops
-            - Train return option available
-            
-            Essential items:
-            - 2L water minimum
-            - Snacks and lunch money
-            - Basic tools
-            - Train fare for return`,
-            rideNotes: `09:00 - 8 riders started from Fleet<br>
-            11:00 - Coffee at Hampton Court<br>
-            13:00 - Lunch by Tower Bridge<br>
-            15:00 - Started return journey<br>
-            17:00 - Train from Waterloo<br>
-            <br>
-            Route was mostly dry with good conditions.`,
-            photosURL: 'https://app.box.com/s/example'
+            destination: 'Bisley, National Shooting Centre (NSC)',
+            rideDistance: '27 miles',
+            rideDuration: '3.5 hours',
+            meetLocation: 'Regular Meeting Point',
+            meetLocationURL: `https://maps.app.goo.gl/nPWoEP72g2LS9NqW6`,
+            guidance: `Easy going along towpath, Cafe at NSC.`,
+            rideNotes: `4 went.<br>
+            09:30 Start<br>
+            Towpath was wet and muddy, it made for slow going.<br>
+            11:00 - 1 hr 30 mins, arrived at NSC Cafe, great breakfast...uphill on way back! lol<br>
+            13:00 - 3 hrs 30 mins, back in Fleet, 27 miles`,
+            routeMapURL: 'ride-maps/lock-stock-and-barrel.jpg',  
+            photosURL: 'https://app.box.com/s/pyjj7jaceavybr0tw3ux262y343375as'
         }
     }
 ]

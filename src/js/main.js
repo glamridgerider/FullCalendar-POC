@@ -160,6 +160,55 @@ document.addEventListener('DOMContentLoaded', function () {
     return `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`
   }
 
+  // Helper function to setup calendar navigation
+  function setupCalendarNavigation(calendar) {
+    const prevButton = document.getElementById('prevMonth');
+    const nextButton = document.getElementById('nextMonth');
+    const todayButton = document.getElementById('today');
+
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        calendar.prev();
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        calendar.next();
+      });
+    }
+
+    if (todayButton) {
+      todayButton.addEventListener('click', () => {
+        calendar.today();
+      });
+    }
+
+    // Add keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      switch(e.key) {
+        case 'ArrowLeft':
+          if (e.ctrlKey || e.metaKey) {
+            calendar.prev();
+          }
+          break;
+        case 'ArrowRight':
+          if (e.ctrlKey || e.metaKey) {
+            calendar.next();
+          }
+          break;
+        case 't':
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            calendar.today();
+          }
+          break;
+      }
+    });
+  }
+
   const calendar = new Calendar(calendarEl, {
     plugins: [dayGridPlugin, bootstrap5Plugin],
     themeSystem: 'bootstrap5',
@@ -444,16 +493,17 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // Add optional photos/route section
-      if (props.routeURL || props.ridePhotosURL || props.photosURL || props.ridePhotos) {
+      if (props.routeMapURL || props.photosURL || props.ridePhotosURL || props.ridePhotos) {
         const ridePhotos = document.createElement('div');
         ridePhotos.className = 'ride-photos';
         ridePhotos.innerHTML = `
           <h6 class="details-section-title">${isSocialEvent ? 'Photos' : 'Route & Photos'}</h6>
           <div class="action-buttons d-flex gap-3 justify-content-center">
-            ${!isSocialEvent && (props.routeURL || props.ridePhotosURL) ? `
-              <a href="${props.routeURL || props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
-                <i class="bi bi-map"></i> View Route Details
-              </a>
+            ${!isSocialEvent && props.routeMapURL ? `
+              <button class="btn btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#routeMapModal" 
+                      data-route-map="${props.routeMapURL}" data-ride-title="${event.title}">
+                <i class="bi bi-map"></i> View Route Map
+              </button>
             ` : ''}
             ${props.photosURL || props.ridePhotosURL ? `
               <a href="${props.photosURL || props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary ${isSocialEvent ? 'w-50' : 'flex-fill'}">
@@ -495,66 +545,32 @@ document.addEventListener('DOMContentLoaded', function () {
     events: calendarEvents
   })
 
-  // Add keyboard navigation support
-  document.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
-
-    switch(e.key) {
-      case 'ArrowLeft':
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault()
-          calendar.prev()
-        }
-        break
-      case 'ArrowRight':
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault()
-          calendar.next()
-        }
-        break
-      case 't':
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault()
-          calendar.today()
-        }
-        break
-    }
-  })
-
-  // Helper function to handle tooltip for navigation buttons
-  function handleTooltip(button) {
-    const tooltip = bootstrap.Tooltip.getInstance(button);
-    if (tooltip) {
-      tooltip.dispose(); // Properly dispose of the tooltip
-    }
-    // Always reinitialize the tooltip
-    new bootstrap.Tooltip(button, {
-      title: button.getAttribute('data-bs-original-title'),
-      placement: 'bottom',
-      trigger: 'hover',
-      boundary: 'window'
+  // Handle route map modal
+  const routeMapModal = document.getElementById('routeMapModal');
+  if (routeMapModal) {
+    routeMapModal.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+      const button = event.relatedTarget;
+      
+      // Extract info from data-* attributes
+      const routeMapUrl = button.getAttribute('data-route-map');
+      const rideTitle = button.getAttribute('data-ride-title');
+      
+      // Update the modal's content
+      const modalTitle = routeMapModal.querySelector('.modal-title');
+      const modalImage = routeMapModal.querySelector('.route-map-image');
+      
+      modalTitle.textContent = `Route Map - ${rideTitle}`;
+      modalImage.src = routeMapUrl;
+      modalImage.alt = `Route map for ${rideTitle}`;
     });
   }
 
-  // Add event listeners for navigation controls
-  document.getElementById('prevMonth').addEventListener('click', (e) => {
-    handleTooltip(e.currentTarget);
-    calendar.prev();
-  });
-
-  document.getElementById('nextMonth').addEventListener('click', (e) => {
-    handleTooltip(e.currentTarget);
-    calendar.next();
-  });
-
-  document.getElementById('today').addEventListener('click', (e) => {
-    handleTooltip(e.currentTarget);
-    calendar.today();
-  });
-
   // Initialize calendar
-  calendar.render()
+  calendar.render();
 
+  // Setup navigation after calendar is initialized
+  setupCalendarNavigation(calendar);
   /**
    * Convert URLs and Markdown-style links to clickable HTML links
    * @param {string} text The text containing URLs or Markdown links
@@ -627,13 +643,13 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
             ` : ''}
 
-            ${props.ridePhotosURL || props.ridePhotos ? `
+            ${props.routeMapURL || props.ridePhotosURL || props.ridePhotos ? `
               <div class="ride-photos">
                 <h6 class="details-section-title">${props.rideType === 'Social' ? 'Photos' : 'Route & Photos'}</h6>
                 <div class="action-buttons d-flex gap-3 justify-content-center">
-                  ${props.rideType !== 'Social' && props.ridePhotosURL ? `
-                    <a href="${props.ridePhotosURL}" target="_blank" class="btn btn-outline-primary flex-fill">
-                      <i class="bi bi-map"></i> View Route Details
+                  ${props.rideType !== 'Social' && props.routeMapURL ? `
+                    <a href="${props.routeMapURL}" target="_blank" class="btn btn-outline-primary flex-fill">
+                      <i class="bi bi-map"></i> View Route Map
                     </a>
                   ` : ''}
                   ${props.ridePhotosURL ? `
