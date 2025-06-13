@@ -1,0 +1,19 @@
+// src/scss/_variables.scss
+
+// Modern color palette
+$primary: #4f46e5; // Indigo
+$secondary: #64748b; // Slate
+$success: #22c55e;
+$info: #0ea5e9;
+$warning: #f59e0b;
+$danger: #ef4444;
+
+// Custom colors for your components
+$gradient-start: #4f46e5;
+$gradient-end: #6366f1;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$background-light: #f8fafc;
+$border-color: #e2e8f0;
+$hover-bg: rgba($primary, 0.04);
+$active-bg: rgba($primary, 0.12);

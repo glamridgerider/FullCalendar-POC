@@ -1,0 +1,29 @@
+// src/scss/_bootstrap_customizer.scss
+
+// 1. FORWARD Bootstrap's core functions so we can use them in our config.
+@forward "bootstrap/scss/functions";
+
+// 2. USE Bootstrap's main files WITH our custom variables. This is where the configuration happens.
+@use "bootstrap/scss/variables" with (
+  $primary: #4f46e5,
+  $secondary: #64748b,
+  $success: #22c55e,
+  $info: #0ea5e9,
+  $warning: #f59e0b,
+  $danger: #ef4444,
+  $border-color: #e2e8f0,
+
+  $theme-colors: (
+    "primary": #4f46e5,
+    "secondary": #64748b,
+    "success": #22c55e,
+    "info": #0ea5e9,
+    "warning": #f59e0b,
+    "danger": #ef4444,
+    "light": #f8f9fa,
+    "dark": #212529
+  )
+);
+
+// 3. FORWARD the rest of Bootstrap so other files can access its mixins and classes.
+@forward "bootstrap/scss/mixins";
